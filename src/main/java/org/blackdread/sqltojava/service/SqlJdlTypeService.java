@@ -27,7 +27,7 @@ public class SqlJdlTypeService {
     private void init() {
         final List<String> total = Streams.concat(
             jdlString().stream(),
-            jdlBigDecimal().stream(),
+            //jdlBigDecimal().stream(),
             jdlBoolean().stream(),
             jdlDouble().stream(),
             jdlEnum().stream(),
@@ -112,9 +112,9 @@ public class SqlJdlTypeService {
             return JdlFieldEnum.BOOLEAN;
         }
 
-        if (isTypeContained(jdlBigDecimal(), type)) {
+       /* if (isTypeContained(jdlBigDecimal(), type)) {
             return JdlFieldEnum.BIG_DECIMAL;
-        }
+        }*/
 
         if (isTypeContained(jdlGeometry(), type)) {
             return JdlFieldEnum.GEOMETRY_AS_TEXT;
@@ -178,7 +178,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlFloat() {
-        return Lists.newArrayList("float");
+        return Lists.newArrayList("float", "decimal");
     }
 
     protected List<String> jdlLocalDate() {

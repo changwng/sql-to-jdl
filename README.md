@@ -3,7 +3,33 @@
 
 # sql-to-jdl
 Tool to translate SQL databases to JDL format of jHipster (Created due to existing databases to be generated with jHipster and build angular-java web)
+```code 
+====수정내용 =====
+1. BigDecimal => Long
+    decimal 추가
+    protected List<String> jdlFloat() {
+        return Lists.newArrayList("float", "decimal");
+    }
+   -- 아래는 삭제 처리 
+if (isTypeContained(jdlBigDecimal(), type)) {
+            return JdlFieldEnum.BIG_DECIMAL;
+        }
+        
+2. 1:1 테이블
+hosptal_directions
+user_body_rec
+BigDecimal
+이것을 정리함
 
+HospitalDirections
+userBodyRec
+
+
+
+실행 
+jhipster jdl lemongod_one-project.jdl
+
+```
 
 # Compatibility
 This implementation works with mysql 5.7+ and mysql 8+.

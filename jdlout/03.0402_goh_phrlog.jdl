@@ -1,0 +1,379 @@
+/** 관리자메뉴접근이력 */
+entity AdminAccessHistory {
+	/** id */
+	id Long required,
+	/** action */
+	action String required maxlength(10),
+	/** description */
+	description String required maxlength(256),
+	/** hospital_cd */
+	hospitalCd String maxlength(20),
+	/** ip */
+	ip String required maxlength(40),
+	/** target_user_id */
+	targetUserId Long,
+	/** user_accnt */
+	userAccnt String required maxlength(50),
+	/** ymd */
+	ymd LocalDate required,
+	/** created_on */
+	createdOn Instant required
+}
+
+/** 관리자로그인이력 */
+entity AdminLoginHistory {
+	/** id */
+	id Long required,
+	/** user_accnt */
+	userAccnt String required maxlength(50),
+	/** success */
+	success String required maxlength(1),
+	/** details */
+	details String maxlength(256),
+	/** ip */
+	ip String required maxlength(40),
+	/** ymd */
+	ymd LocalDate required,
+	/** created_on */
+	createdOn Instant required
+}
+
+/** 관리자개인정보접근이력 */
+entity AdminPrivacyAccess {
+	/** id */
+	id Long required,
+	/** user_accnt */
+	userAccnt String required maxlength(50),
+	/** hospital_cd */
+	hospitalCd String maxlength(20),
+	/** service */
+	service String required maxlength(256),
+	/** action */
+	action String required maxlength(10),
+	/** description */
+	description String maxlength(256),
+	/** request */
+	request TextBlob required,
+	/** result */
+	result TextBlob,
+	/** ip */
+	ip String required maxlength(40),
+	/** ymd */
+	ymd LocalDate required,
+	/** created_on */
+	createdOn Instant required
+}
+
+/** 앱사용이력 */
+entity AppLog {
+	/** 이력id */
+	id Long required,
+	/** 서비스명 */
+	serviceNm String required maxlength(100),
+	/** 기록일시 */
+	createdOn Instant required,
+	/** 서버주소 */
+	serverIp String required maxlength(40),
+	/** 서버포트 */
+	serverPort Integer required,
+	/** 사용자id */
+	userId Long,
+	/** 사용자계정 */
+	userAccnt String maxlength(50),
+	/** 요청URL */
+	reqUrl String required maxlength(256),
+	/** 요청헤더 */
+	reqHeader TextBlob,
+	/** 요청데이터 */
+	reqData TextBlob,
+	/** 응답데이터 */
+	respData TextBlob,
+	/** 처리시간 */
+	elapsedTime Integer required,
+	/** 추척id */
+	traceId String required maxlength(36),
+	/** 에러발생여부 */
+	errorEnabled Boolean required,
+	/** 디바이스종류 */
+	deviceType String maxlength(36),
+	/** 환자번호 */
+	patientNo String maxlength(36),
+	/** 사용자IP */
+	userIp String maxlength(40),
+	/** 앱id */
+	appId Long,
+	/** 기기식별번호 */
+	deviceUuid String maxlength(36),
+	/** 병원id */
+	hospitalId Long,
+	/** 요청방법 */
+	reqMethod String maxlength(20)
+}
+
+/** 앱메뉴이력 */
+entity AppMenuLog {
+	/** 로그id */
+	id Long required,
+	/** 기록일시 */
+	createdOn Instant required,
+	/** 유저에이전트 */
+	userAgent String required maxlength(256),
+	/** 디바이스종류 */
+	deviceType String required maxlength(36),
+	/** 사용자IP */
+	userIp String required maxlength(40),
+	/** 메뉴id */
+	menuId Long,
+	/** 메뉴트리id */
+	hospitalMenuId Long,
+	/** 사용자계정 */
+	userAccnt String required maxlength(50),
+	/** 앱id */
+	appId Long required,
+	/** 기기식별번호 */
+	deviceUuid String required maxlength(36),
+	/** 사용자id */
+	userId Long,
+	/** 환자번호 */
+	patientNo String required maxlength(36),
+	/** 병원id */
+	hospitalId Long,
+	/** 위변조해시값 */
+	hashKey String required maxlength(2048),
+	/** 에러코드 */
+	errorCd String required maxlength(36),
+	/** 에러메시지 */
+	errorMsg TextBlob required,
+	/** 로그유형 */
+	logType String required maxlength(20),
+	/** 기록id */
+	transId String maxlength(50),
+	/** 목적지url */
+	destUrl String maxlength(256)
+}
+
+/** 공공_병원교통정보 */
+entity OpenDirections {
+	/** 의료기관식별값 */
+	ykiho String required maxlength(400),
+	/** 의료기관명 */
+	yadmnm String required maxlength(150),
+	/** 교통편 */
+	trafnm String maxlength(100),
+	/** 노선번호 */
+	lineno String maxlength(100),
+	/** 하차지점 */
+	arivplc String maxlength(100),
+	/** 방향 */
+	dir String maxlength(100),
+	/** 거리 */
+	dist String maxlength(100),
+	/** 비고 */
+	rmk String maxlength(100)
+}
+
+/** 공공_의료장비정보 */
+entity OpenEquipment {
+	/** 의료기관식별값 */
+	ykiho String required maxlength(400),
+	/** 의료기관명 */
+	yadmnm String required maxlength(150),
+	/** 장비코드 */
+	oftcd String required maxlength(4),
+	/** 장비명 */
+	oftcdnm String required maxlength(100),
+	/** 보유대수 */
+	oftcnt Integer required
+}
+
+/** 공공_병원정보 */
+entity OpenHospital {
+	/** 의료기관식별값 */
+	ykiho String required maxlength(400),
+	/** 의료기관명 */
+	yadmnm String required maxlength(150),
+	/** 종별코드 */
+	clcd String maxlength(2),
+	/** 종별코드명 */
+	clcdnm String maxlength(150),
+	/** 시도코드 */
+	sidocd String maxlength(6),
+	/** 시도명 */
+	sidocdnm String maxlength(150),
+	/** 시군구코드 */
+	sggucd String maxlength(6),
+	/** 시군구명 */
+	sggucdnm String maxlength(150),
+	/** 읍면동명 */
+	emdongnm String maxlength(150),
+	/** 우편번호 */
+	postno String maxlength(6),
+	/** 주소 */
+	addr String maxlength(500),
+	/** 전화번호 */
+	telno String maxlength(30),
+	/** 홈페이지 */
+	hospurl String maxlength(500),
+	/** 개설일자 */
+	estbdd String maxlength(8),
+	/** x좌표 */
+	xpos String maxlength(18),
+	/** y좌표 */
+	ypos String maxlength(18),
+	/** 의사총수 */
+	drtotcnt Integer,
+	/** 일반의수 */
+	gdrcnt Integer,
+	/** 인턴수 */
+	intncnt Integer,
+	/** 레지던트수 */
+	resdntcnt Integer,
+	/** 전문의수 */
+	sdrcnt Integer
+}
+
+/** 공공_병원세부정보 */
+entity OpenMedicalInfo {
+	/** 의료기관식별값 */
+	ykiho String required maxlength(400),
+	/** 의료기관명 */
+	yadmnm String required maxlength(150),
+	/** 위치건물명 */
+	plcnm String maxlength(100),
+	/** 위치방향 */
+	plcdir String maxlength(100),
+	/** 위치거리 */
+	plcdist String maxlength(100),
+	/** 주차가능대수 */
+	parkqty Integer,
+	/** 주차장운영여부 */
+	parkxpnsyn String maxlength(1),
+	/** 주차안내사항 */
+	parketc String maxlength(1000),
+	/** 일요일휴진안내 */
+	notrmtsun String maxlength(100),
+	/** 공휴일휴진안내 */
+	notrmtholi String maxlength(100),
+	/** 주간응급실여부 */
+	emydayyn String maxlength(1),
+	/** 주간응급실전화1 */
+	emydaytelno1 String maxlength(50),
+	/** 주간응급실전화2 */
+	emydaytelno2 String maxlength(50),
+	/** 야간응급실여부 */
+	emyngtyn String maxlength(1),
+	/** 야간응급실전화1 */
+	emyngttelno1 String maxlength(50),
+	/** 야간응급실전화2 */
+	emyngttelno2 String maxlength(50),
+	/** 점심시간평일 */
+	lunchday String maxlength(100),
+	/** 점심시간토요일 */
+	lunchsat String maxlength(100),
+	/** 접수시간평일 */
+	applystrday String maxlength(100),
+	/** 접수시간토요일 */
+	applystrsat String maxlength(100),
+	/** 진료시작시간_일 */
+	dgstrsun String maxlength(4),
+	/** 진료종료시간_일 */
+	dgendsun String maxlength(4),
+	/** 진료시작시간_월 */
+	dgstrmon String maxlength(4),
+	/** 진료종료시간_월 */
+	dgendmon String maxlength(4),
+	/** 진료시작시간_화 */
+	dgstrtue String maxlength(4),
+	/** 진료종료시간_화 */
+	dgendtue String maxlength(4),
+	/** 진료시작시간_수 */
+	dgstrwed String maxlength(4),
+	/** 진료종료시간_수 */
+	dgendwed String maxlength(4),
+	/** 진료시작시간_목 */
+	dgstrthu String maxlength(4),
+	/** 진료종료시간_목 */
+	dgendthu String maxlength(4),
+	/** 진료시작시간_금 */
+	dgstrfri String maxlength(4),
+	/** 진료종료시간_금 */
+	dgendfri String maxlength(4),
+	/** 진료시작시간_토 */
+	dgstrsat String maxlength(4),
+	/** 진료종료시간_토 */
+	dgendsat String maxlength(4)
+}
+
+/** 공공_약국정보 */
+entity OpenPharmacy {
+	/** 약국식별값 */
+	ykiho String required maxlength(300),
+	/** 약국명 */
+	yadmnm String required maxlength(100),
+	/** 종별코드 */
+	clcd String required maxlength(2),
+	/** 종별코드명 */
+	clcdnm String maxlength(20),
+	/** 시도코드 */
+	sidocd String maxlength(6),
+	/** 시도코드명 */
+	sidocdnm String maxlength(100),
+	/** 시군구코드 */
+	sggucd String maxlength(6),
+	/** 시군구코드명 */
+	sggucdnm String maxlength(100),
+	/** 읍면동 */
+	emdongnm String maxlength(100),
+	/** 우편번호 */
+	postno String maxlength(6),
+	/** 주소 */
+	addr String maxlength(300),
+	/** 전화번호 */
+	telno String maxlength(50),
+	/** 개설일자 */
+	estbdd String maxlength(8),
+	/** x좌표 */
+	xpos String maxlength(18),
+	/** y좌표 */
+	ypos String maxlength(18)
+}
+
+/** 공공_특수진료정보 */
+entity OpenSpclmdlrtinfo {
+	/** 의료기관식별값 */
+	ykiho String required maxlength(400),
+	/** 의료기관명 */
+	yadmnm String required maxlength(150),
+	/** 검색코드 */
+	srchcd String required maxlength(2),
+	/** 검색코드명 */
+	srchcdnm String required maxlength(100)
+}
+
+/** 공공_진료과목 */
+entity OpenTreatment {
+	/** 의료기관식별값 */
+	ykiho String required maxlength(400),
+	/** 의료기관명 */
+	yadmnm String required maxlength(150),
+	/** 진료과목코드 */
+	dgsbjtcd String required maxlength(2),
+	/** 진료과목명 */
+	dgsbjtcdnm String required maxlength(100),
+	/** 전문의수 */
+	dgsbjtprsdrcnt Integer required,
+	/** 선택진료의사수 */
+	cdiagdrcnt Integer required
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

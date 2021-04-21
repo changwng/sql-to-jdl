@@ -1,0 +1,337 @@
+/** 선택동의설정 */
+entity AgrmntSet {
+	/** 동의옵션id */
+	id Long required,
+	/** 옵션코드 */
+	optionCd String required maxlength(20),
+	/** 옵션명 */
+	optionNm String required maxlength(20),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 사용여부 */
+	enabled Boolean required
+}
+
+/** 비회원약관동의 */
+entity AnonymAgrmnt {
+	/** 비회원동의id */
+	id Long required,
+	/** 약관동의일시 */
+	agreedOn Instant required,
+	/** 비회원ci */
+	anonymCi String required maxlength(2048),
+	/** 사용자명 */
+	userNm String required maxlength(50)
+}
+
+/** 가족등록신청 */
+entity FamilyApply {
+	/** 가족등록id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 가족명 */
+	familyNm String required maxlength(50),
+	/** 생년월일 */
+	birthday String required maxlength(8),
+	/** 가족관계유형 */
+	relType String required maxlength(20),
+	/** 승인일시 */
+	confirmedOn Instant,
+	/** 승인자id */
+	confirmUserId Long,
+	/** 만료일자 */
+	expiredDate LocalDate,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 가족관계증명파일 */
+entity FamilyCertFile {
+	/** 가족증명파일id */
+	id Long required,
+	/** 파일이름 */
+	fileNm String required maxlength(100),
+	/** 파일크기 */
+	fileSize Integer required,
+	/** 파일유형 */
+	fileType String required maxlength(20),
+	/** 파일원본 */
+	fileBinary TextBlob required,
+	/** 업로드일시 */
+	createdOn Instant required
+}
+
+/** 이용약관 */
+entity TermsDef {
+	/** 약관id */
+	id Long required,
+	/** 버전 */
+	termsVer String required maxlength(50),
+	/** 기관구분 */
+	compType String required maxlength(20),
+	/** 기관코드 */
+	termsOwnerCd String required maxlength(20),
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 약관내용 */
+	termsTxt TextBlob required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 약관변경이력 */
+entity TermsHst {
+	/** 약관이력id */
+	id Long required,
+	/** 약관시작일 */
+	startDate LocalDate required,
+	/** 약관종료일 */
+	endDate LocalDate required,
+	/** 약관내용 */
+	termsTxt TextBlob required
+}
+
+/** 약관종류 */
+entity TermsType {
+	/** 약관종류id */
+	id Long required,
+	/** 약관코드 */
+	termsCd String required maxlength(50),
+	/** 약관명 */
+	termsNm String required maxlength(50),
+	/** 필수여부 */
+	required Boolean required,
+	/** 약관종류 */
+	termsType String required maxlength(20),
+	/** 표시순서 */
+	dispOrd String required maxlength(10)
+}
+
+/** 사용자약관동의 */
+entity UserAgrmnt {
+	/** 약관동의id */
+	id Long required,
+	/** 동의일시 */
+	agreedOn Instant required
+}
+
+/** 선택동의이력 */
+entity UserAgrmntOpt {
+	/** 옵션동의id */
+	id Long required,
+	/** 발생일시 */
+	startedOn Instant required,
+	/** 동의상태 */
+	agreeState String required maxlength(20)
+}
+
+/** 사용자메뉴 */
+entity UserMenu {
+	/** 사용자메뉴id */
+	id Long required,
+	/** 메뉴유형 */
+	menuType String required maxlength(20),
+	/** 메뉴id */
+	menuId Long required,
+	/** 노드레벨 */
+	level Integer required,
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 상속메뉴명 */
+	ovrdMenuNm String maxlength(50),
+	/** 상속서비스주소 */
+	ovrdServiceUrl String maxlength(256),
+	/** 상속이미지주소 */
+	ovrdImgUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 사용자기본 */
+entity UserMst {
+	/** 사용자id */
+	id Long required,
+	/** 회원상태 */
+	userStatus Boolean required,
+	/** 본인CI값 */
+	myCi String maxlength(256),
+	/** 휴면시작일시 */
+	inactivedOn Instant,
+	/** 회원탈퇴일시 */
+	withdrawalOn Instant,
+	/** 성명 */
+	userNm String maxlength(50),
+	/** 생년월일 */
+	birthday String maxlength(8),
+	/** 성별 */
+	sex String maxlength(1),
+	/** 우편번호 */
+	postNo String maxlength(6),
+	/** 도로명주소 */
+	roadAddr1 String maxlength(120),
+	/** 상세주소 */
+	roadAddr2 String maxlength(100),
+	/** 이메일 */
+	email String maxlength(50),
+	/** 휴대폰번호 */
+	cellPhoneNo String maxlength(30),
+	/** 통신사코드 */
+	telecomCd String maxlength(20),
+	/** 국적코드 */
+	countryCd String maxlength(20),
+	/** 마일리지 */
+	mileage Integer,
+	/** 이용동의선택 */
+	agreeOption String maxlength(50),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant,
+	/** 신장 */
+	bodyHeight Float,
+	/** 체중 */
+	bodyWeight Float,
+	/** 허리둘레 */
+	bodyWaist Float,
+	/** 혈액형 */
+	bodyBlood String maxlength(20),
+	/** 목표체중 */
+	goalWeight Float,
+	/** 일일걸음수 */
+	dailyWalkCnt Integer
+}
+
+/** 포인트거래내역 */
+entity UserPointTran {
+	/** 이력id */
+	id Long required,
+	/** 사용적립구분 */
+	useType String required maxlength(20),
+	/** 발생일시 */
+	eventOn Instant required,
+	/** 결제금액 */
+	payAmt Integer,
+	/** 적립율 */
+	savePercent Integer,
+	/** 포인트값 */
+	point Integer required,
+	/** 유효종료일 */
+	endedOn Instant required,
+	/** 메모 */
+	memo String required maxlength(1000),
+	/** 이벤트id */
+	eventId Long required,
+	/** 게시물id */
+	postId Long,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+
+
+// Relations
+// 비회원약관동의
+relationship ManyToOne {
+	/** 약관id */
+	AnonymAgrmnt{termsDef required} to TermsDef{anonymAgrmnt}
+}
+
+// 가족등록신청
+relationship ManyToOne {
+	/** 가족증명파일id */
+	FamilyApply{familyCert} to FamilyCertFile{familyApply}
+}
+
+// 가족관계증명파일
+relationship ManyToOne {
+	/** 사용자id */
+	FamilyCertFile{user required} to UserMst{familyCertFile}
+}
+
+// 이용약관
+relationship ManyToOne {
+	/** 약관종류id */
+	TermsDef{termsType required} to TermsType{termsDef}
+}
+
+// 약관변경이력
+relationship ManyToOne {
+	/** 약관id */
+	TermsHst{termsDef required} to TermsDef{termsHst}
+}
+
+// 사용자약관동의
+relationship ManyToOne {
+	/** 사용자id */
+	UserAgrmnt{user required} to UserMst{userAgrmnt}
+}
+
+// 사용자약관동의
+relationship ManyToOne {
+	/** 약관id */
+	UserAgrmnt{termsDef required} to TermsDef{userAgrmnt}
+}
+
+// 선택동의이력
+relationship ManyToOne {
+	/** 사용자id */
+	UserAgrmntOpt{user required} to UserMst{userAgrmntOpt}
+}
+
+// 선택동의이력
+relationship ManyToOne {
+	/** 동의옵션id */
+	UserAgrmntOpt{agrmntOpt required} to AgrmntSet{userAgrmntOpt}
+}
+
+// 사용자메뉴
+relationship ManyToOne {
+	/** 사용자id */
+	UserMenu{user required} to UserMst{userMenu}
+}
+
+// 사용자메뉴
+relationship ManyToOne {
+	/** 상위사용자메뉴id */
+	UserMenu{up} to UserMenu{userMenu}
+}
+
+// 포인트거래내역
+relationship ManyToOne {
+	/** 사용자id */
+	UserPointTran{user required} to UserMst{userPointTran}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

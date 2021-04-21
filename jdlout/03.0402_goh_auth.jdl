@@ -1,0 +1,331 @@
+/** 개발자계정 */
+entity LemonDevAccnt {
+	/** 개발자계정id */
+	id Long required,
+	/** 개발자계정 */
+	userAccnt String required maxlength(30),
+	/** 앱비밀코드 */
+	securityCd String required maxlength(30),
+	/** 회신url1 */
+	returnUrl1 String maxlength(256),
+	/** 회신url2 */
+	returnUrl2 String maxlength(256),
+	/** 회신url3 */
+	returnUrl3 String maxlength(256),
+	/** 회신url4 */
+	returnUrl4 String maxlength(256),
+	/** 회신url5 */
+	returnUrl5 String maxlength(256),
+	/** 암호권한허용여부 */
+	authEnabled Boolean,
+	/** 리프레시토큰여부 */
+	refreshEnabled Boolean
+}
+
+/** 단말기정보 */
+entity LemonDevice {
+	/** 단말기id */
+	id Long required,
+	/** 기기식별번호 */
+	uuid String required maxlength(36),
+	/** 푸시토큰 */
+	pushToken String maxlength(2048),
+	/** 플랫폼타입 */
+	platformType String required maxlength(20),
+	/** 버전정보 */
+	deviceVer String required maxlength(20),
+	/** 모델명 */
+	modelNm String required maxlength(50)
+}
+
+/** 레몬서비스 */
+entity LemonService {
+	/** 레몬서비스id */
+	id Long required,
+	/** 서비스코드 */
+	serviceCd String required maxlength(30),
+	/** 서비스명 */
+	serviceNm String required maxlength(30),
+	/** 도메인 */
+	domain String required maxlength(50),
+	/** 통합인증사용여부 */
+	certEnabled Boolean required,
+	/** 인증위임uri */
+	jwtUri String maxlength(256),
+	/** api호출정보 */
+	apiUrl String maxlength(256),
+	/** 인증초기화uri */
+	initUri String maxlength(256),
+	/** 사이트연결정보 */
+	siteUrl String maxlength(256),
+	/** 병원코드 */
+	hospitalCd String maxlength(20)
+}
+
+/** 통합회원매핑 */
+entity LemonUser {
+	/** 매핑id */
+	id Long required,
+	/** 사이트회원id */
+	siteUserId Long required,
+	/** 인증토큰 */
+	accessToken String required maxlength(500),
+	/** 리프레시토큰 */
+	refreshToken String required maxlength(500),
+	/** 최근인증일시 */
+	latestCertOn Instant required
+}
+
+/** 푸시수신이력 */
+entity PushLog {
+	/** 푸시수신id */
+	id Long required,
+	/** 읽음일시 */
+	readOn Instant,
+	/** 수신일시 */
+	receivedOn Instant,
+	/** FCM결과메시지 */
+	resultMsg String maxlength(2048),
+	/** 삭제일시 */
+	deletedOn Instant
+}
+
+/** 푸시메시지 */
+entity PushMessage {
+	/** 푸시메시지id */
+	id Long required,
+	/** 메시지내용 */
+	contents TextBlob required,
+	/** FCM메시지 */
+	fcmContents TextBlob required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 푸시요청(수신자) */
+entity PushRequest {
+	/** 푸시요청id */
+	id Long required,
+	/** 단말기식별값 */
+	uuid String required maxlength(36),
+	/** 요청일시 */
+	createdOn Instant required,
+	/** 통합회원id */
+	userId Long
+}
+
+/** 통합인증 */
+entity UnionCert {
+	/** 인증id */
+	id Long required,
+	/** 인증종류 */
+	certType String required maxlength(20),
+	/** 암호변경일시 */
+	pwdChangedOn Instant,
+	/** 계정잠금일시 */
+	accntLockedOn Instant,
+	/** 인증실패횟수 */
+	pwdRetryCnt Integer,
+	/** SNS종류 */
+	snsType String maxlength(20),
+	/** SNS식별자 */
+	uuid String maxlength(36),
+	/** 인증토큰 */
+	accessToken String maxlength(500),
+	/** 리프레시토큰 */
+	refreshToken String maxlength(500),
+	/** 최근인증일시 */
+	latestCertOn Instant,
+	/** 간편인증종류 */
+	simpleType String maxlength(20),
+	/** 간편암호값 */
+	simplePwd String maxlength(256),
+	/** 사용자계정 */
+	userAccnt String maxlength(30),
+	/** 사용자암호 */
+	userPwd String maxlength(256)
+}
+
+/** 개인정보변경이력 */
+entity UnionChgLog {
+	/** 변경이력id */
+	id Long required,
+	/** 통합회원id */
+	userId Long required,
+	/** 변경구분코드 */
+	chgCd String required maxlength(20),
+	/** 발생일시 */
+	createdOn Instant required,
+	/** 변경전내용 */
+	beforeText String required maxlength(256),
+	/** 변경후내용 */
+	afterText String required maxlength(256)
+}
+
+/** 인증단말기 */
+entity UnionDevice {
+	/** 인증단말기id */
+	id Long required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 사용자비활성이력 */
+entity UnionInactiveLog {
+	/** 비활성id */
+	id Long required,
+	/** 통합회원id */
+	userId Long required,
+	/** 비활성종류 */
+	inactiveType String required maxlength(20),
+	/** 비활성일시 */
+	inactivedOn Instant required,
+	/** 활성일시 */
+	activedOn Instant,
+	/** 탈퇴사유코드 */
+	withdrawalType String maxlength(20),
+	/** 탈퇴사유 */
+	withdrawalDesc String maxlength(100)
+}
+
+/** 로그인이력 */
+entity UnionLoginLog {
+	/** 이력id */
+	id Long required,
+	/** 통합회원id */
+	userId Long required,
+	/** 기록일시 */
+	logedOn Instant required,
+	/** 인증유형 */
+	authType String required maxlength(20),
+	/** 로그인아웃구분 */
+	loginType String required maxlength(20),
+	/** 로그인계정 */
+	userAccnt String maxlength(50),
+	/** 서비스코드 */
+	serviceCd String maxlength(30),
+	/** 서비스명 */
+	serviceNm String maxlength(30),
+	/** 앱이름 */
+	appNm String maxlength(50),
+	/** 앱버전 */
+	appVer String maxlength(20),
+	/** 단말기uuid */
+	deviceUuid String maxlength(36)
+}
+
+/** 통합회원 */
+entity UnionUser {
+	/** 통합회원id */
+	id Long required,
+	/** 회원상태 */
+	userStatus Boolean required,
+	/** 본인CI값 */
+	myCi String maxlength(256),
+	/** 휴면시작일시 */
+	inactivedOn Instant,
+	/** 회원탈퇴일시 */
+	withdrawalOn Instant,
+	/** 성명 */
+	userNm String maxlength(50),
+	/** 생년월일 */
+	birthday String maxlength(8),
+	/** 성별 */
+	sex String maxlength(1),
+	/** 우편번호 */
+	postNo String maxlength(6),
+	/** 도로명주소 */
+	roadAddr1 String maxlength(120),
+	/** 상세주소 */
+	roadAddr2 String maxlength(100),
+	/** 이메일 */
+	email String maxlength(50),
+	/** 휴대폰번호 */
+	cellPhoneNo String maxlength(30),
+	/** 통신사코드 */
+	telecomCd String maxlength(20),
+	/** 국적코드 */
+	countryCd String maxlength(20),
+	/** 마일리지 */
+	mileage Integer,
+	/** 이용동의선택 */
+	agreeOption String maxlength(50),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+
+
+// Relations
+// 개발자계정
+relationship ManyToOne {
+	/** 레몬서비스id */
+	LemonDevAccnt{service required} to LemonService{lemonDevAccnt}
+}
+
+// 통합회원매핑
+relationship ManyToOne {
+	/** 통합회원id */
+	LemonUser{user required} to UnionUser{lemonUser}
+}
+
+// 통합회원매핑
+relationship ManyToOne {
+	/** 레몬서비스id */
+	LemonUser{service required} to LemonService{lemonUser}
+}
+
+// 푸시수신이력
+relationship ManyToOne {
+	/** 푸시요청id */
+	PushLog{request required} to PushRequest{pushLog}
+}
+
+// 푸시메시지
+relationship ManyToOne {
+	/** 레몬서비스id */
+	PushMessage{service required} to LemonService{pushMessage}
+}
+
+// 푸시요청(수신자)
+relationship ManyToOne {
+	/** 푸시메시지id */
+	PushRequest{message required} to PushMessage{pushRequest}
+}
+
+// 통합인증
+relationship ManyToOne {
+	/** 통합회원id */
+	UnionCert{user required} to UnionUser{unionCert}
+}
+
+// 인증단말기
+relationship ManyToOne {
+	/** 인증id */
+	UnionDevice{cert required} to UnionCert{unionDevice}
+}
+
+// 인증단말기
+relationship ManyToOne {
+	/** 단말기id */
+	UnionDevice{device required} to LemonDevice{unionDevice}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

@@ -1,0 +1,2447 @@
+/** 관리자메뉴접근이력 */
+entity AdminAccessHistory {
+	id Long required,
+	action String required maxlength(10),
+	description String required maxlength(256),
+	hospitalCd String maxlength(20),
+	ip String required maxlength(40),
+	targetUserId Long,
+	userAccnt String required maxlength(50),
+	ymd LocalDate required,
+	createdOn Instant required
+}
+
+/** 관리자로그인이력 */
+entity AdminLoginHistory {
+	id Long required,
+	userAccnt String required maxlength(50),
+	success String required maxlength(1),
+	details String maxlength(256),
+	ip String required maxlength(40),
+	ymd LocalDate required,
+	createdOn Instant required
+}
+
+/** 관리자개인정보접근이력 */
+entity AdminPrivacyAccess {
+	id Long required,
+	userAccnt String required maxlength(50),
+	hospitalCd String maxlength(20),
+	service String required maxlength(256),
+	action String required maxlength(10),
+	description String maxlength(256),
+	request TextBlob required,
+	result TextBlob,
+	ip String required maxlength(40),
+	ymd LocalDate required,
+	createdOn Instant required
+}
+
+/** 선택동의설정 */
+entity AgrmntSet {
+	/** 옵션코드 */
+	optionCd String required maxlength(20),
+	/** 옵션명 */
+	optionNm String required maxlength(20),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 사용여부 */
+	enabled Boolean required
+}
+
+/** 비회원약관동의 */
+entity AnonymAgrmnt {
+	/** 비회원동의id */
+	id Long required,
+	/** 약관동의일시 */
+	agreedOn Instant required,
+	/** 비회원ci */
+	anonymCi String required maxlength(2048),
+	/** 사용자명 */
+	userNm String required maxlength(50)
+}
+
+/** 앱사용이력 */
+entity AppLog {
+	id Long required,
+	serviceNm String required maxlength(100),
+	createdOn Instant required,
+	serverIp String required maxlength(40),
+	serverPort Integer required,
+	userId Long,
+	userAccnt String maxlength(50),
+	reqUrl String required maxlength(256),
+	reqHeader TextBlob,
+	reqData TextBlob,
+	respData TextBlob,
+	elapsedTime Integer required,
+	traceId String required maxlength(36),
+	errorEnabled Boolean required,
+	deviceType String maxlength(36),
+	patientNo String maxlength(36),
+	userIp String maxlength(40),
+	appId Long,
+	deviceUuid String maxlength(36),
+	hospitalId Long,
+	reqMethod String maxlength(20)
+}
+
+/** 앱메뉴이력 */
+entity AppMenuLog {
+	id Long required,
+	createdOn Instant required,
+	userAgent String required maxlength(256),
+	deviceType String required maxlength(36),
+	userIp String required maxlength(40),
+	menuId Long,
+	hospitalMenuId Long,
+	userAccnt String required maxlength(50),
+	appId Long required,
+	deviceUuid String required maxlength(36),
+	userId Long,
+	patientNo String required maxlength(36),
+	hospitalId Long,
+	hashKey String required maxlength(2048),
+	errorCd String required maxlength(36),
+	errorMsg TextBlob required,
+	logType String required maxlength(20),
+	transId String maxlength(50),
+	destUrl String maxlength(256)
+}
+
+/** 앱관리 */
+entity AppMst {
+	/** 앱id */
+	id Long required,
+	/** 앱이름 */
+	appNm String required maxlength(50),
+	/** 앱제품단계 */
+	appState String required maxlength(20),
+	/** 최신앱버전 */
+	appVer String required maxlength(20),
+	/** FCM키 */
+	fcmKey String maxlength(2048),
+	/** FIDO API키 */
+	fidoApiKey String maxlength(256),
+	/** 다중단말허용 */
+	multiEnabled Boolean required,
+	/** 인증사이트코드 */
+	niceSiteCd String maxlength(20),
+	/** 인증사이트암호 */
+	niceSitePwd String maxlength(50),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 앱플랫폼관리 */
+entity AppPlatform {
+	/** 앱플랫폼id */
+	id Long required,
+	/** 플랫폼타입 */
+	platformType String required maxlength(20),
+	/** 패키지명 */
+	pkgNm String required maxlength(100),
+	/** 배포타입 */
+	deployType String required maxlength(20),
+	/** 해시값 */
+	hashKey String maxlength(2048),
+	/** 스토어url */
+	storeUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant,
+	/** iOS심사상태 */
+	iosProcessed Boolean
+}
+
+/** 앱버전관리 */
+entity AppVersion {
+	/** 앱버전id */
+	id Long required,
+	/** 버전코드 */
+	versionCd String required maxlength(20),
+	/** 릴리즈노트 */
+	releaseNote TextBlob required,
+	/** 릴리즈일자 */
+	releasedOn Instant required,
+	/** 필수여부 */
+	required Boolean required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 게시판 */
+entity Board {
+	/** 게시판id */
+	id Long required,
+	/** 레몬서비스코드 */
+	serviceCd String required maxlength(30),
+	/** 게시판명 */
+	boardNm String required maxlength(30),
+	/** 게시판설명 */
+	boardDesc String required maxlength(1000),
+	/** 게시판종류 */
+	boardType String required maxlength(20),
+	/** 기관구분 */
+	compType String required maxlength(20),
+	/** 기관id */
+	compCd String required maxlength(20),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 코드관리 */
+entity CodeMst {
+	/** 코드id */
+	id Long required,
+	/** 분류코드 */
+	codeCls String required maxlength(20),
+	/** 유형 */
+	codeType String required maxlength(20),
+	/** 코드 */
+	code String required maxlength(20),
+	/** 코드명 */
+	codeNm String required maxlength(128),
+	/** 코드영문명 */
+	codeNmEng String maxlength(128),
+	/** 코드설명 */
+	codeDesc String maxlength(1000),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 참조값 */
+	refVal String maxlength(20),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 자가진단참여답변 */
+entity DiagnosisAnswer {
+	/** 참여답변id */
+	id Integer required,
+	/** 문항번호 */
+	itemNo Integer required,
+	/** 답변선택보기번호 */
+	answerTxt Integer required,
+	/** 답변선택지수 */
+	answerIndex Integer required
+}
+
+/** 자가진단답변 */
+entity DiagnosisChoice {
+	/** 보기번호 */
+	choiceNo Integer required,
+	/** 보기설명 */
+	choiceTxt String required maxlength(150),
+	/** 진단지수 */
+	score Integer required
+}
+
+/** 자가진단지수설명 */
+entity DiagnosisIndex {
+	/** 시작지수 */
+	fromIndex Integer required,
+	/** 종료지수 */
+	toIndex Integer required,
+	/** 지수표시명 */
+	indexNm String required maxlength(1),
+	/** 지수설명 */
+	indexTxt String required maxlength(1),
+	/** 썸네일url */
+	thumbUrl String maxlength(1),
+	/** 관련질병설명 */
+	relDisease TextBlob,
+	/** 관련진료과 */
+	relDept String maxlength(1),
+	/** 생활가이드 */
+	lifeGuide TextBlob
+}
+
+/** 자가진단정보 */
+entity DiagnosisInfo {
+	/** 자가진단유형 */
+	diagnosisType String required maxlength(20),
+	/** 자가진단명 */
+	diagnosisNm String required maxlength(50),
+	/** 검사명 */
+	checkupNm String maxlength(50),
+	/** 썸네일url */
+	thumbUrl String maxlength(256),
+	/** 진단설명(출처) */
+	diagTxt TextBlob required,
+	/** 지수총점 */
+	indexTot Integer required,
+	/** 표시순서 */
+	dispOrd String required maxlength(10)
+}
+
+/** 자가진단참여 */
+entity DiagnosisJoin {
+	/** 진단참여id */
+	id Integer required,
+	/** 자가진단일시 */
+	createdOn Instant required,
+	/** 자가진단점수 */
+	diagnosisScore Integer
+}
+
+/** 자가진단문항 */
+entity DiagnosisQuestion {
+	/** 문항번호 */
+	itemNo Integer required,
+	/** 문항설명 */
+	itemTxt String required maxlength(1024),
+	/** 질문문항여부 */
+	answerEnabled Boolean required
+}
+
+entity EventMst {
+	id Long required,
+	eventType String required maxlength(10),
+	eventNm String required maxlength(50),
+	serviceCd String required maxlength(30),
+	startedOn Instant required,
+	endedOn Instant required,
+	validDays Integer required,
+	eventDesc String required maxlength(1000),
+	saveType String required maxlength(10),
+	saveVal Integer required,
+	eventMemo String required maxlength(1000),
+	createdBy Long required,
+	createdOn Instant required,
+	updatedBy Long,
+	updatedOn Instant
+}
+
+/** 가족등록신청 */
+entity FamilyApply {
+	/** 가족등록id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 가족명 */
+	familyNm String required maxlength(50),
+	/** 생년월일 */
+	birthday String required maxlength(8),
+	/** 가족관계유형 */
+	relType String required maxlength(20),
+	/** 승인일시 */
+	confirmedOn Instant,
+	/** 승인자id */
+	confirmUserId Long,
+	/** 만료일자 */
+	expiredDate LocalDate,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 가족관계증명파일 */
+entity FamilyCertFile {
+	/** 가족증명파일id */
+	id Long required,
+	/** 파일이름 */
+	fileNm String required maxlength(100),
+	/** 파일크기 */
+	fileSize Integer required,
+	/** 파일유형 */
+	fileType String required maxlength(20),
+	/** 파일원본 */
+	fileBinary TextBlob required,
+	/** 업로드일시 */
+	createdOn Instant required
+}
+
+/** 이달의의료인 */
+entity GoodDoctors {
+	/** id */
+	id Long required,
+	/** 평가년월 */
+	evalYm String required maxlength(6),
+	/** 병원명 */
+	hospitalNm String required maxlength(30),
+	/** 진료과명 */
+	deptNm String required maxlength(50),
+	/** 공개여부 */
+	openEnabled Boolean required,
+	/** 진료과목명 */
+	treatNm String maxlength(256),
+	/** 의사명 */
+	doctorNm String maxlength(30),
+	/** 의사소개 */
+	doctorTxt String maxlength(500),
+	/** 프로필사진url */
+	imageUrl String maxlength(256),
+	/** 추천수 */
+	likeCnt Integer required,
+	/** 평점 */
+	estPoint Float required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 상품분류 */
+entity GoodsCategory {
+	/** 분류id */
+	id Long required,
+	/** 분류명 */
+	clsNm String required maxlength(50),
+	/** 레벨 */
+	level Integer required,
+	/** 상위분류id */
+	parentId Long,
+	/** 자체분류코드 */
+	clsCd String maxlength(20),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 상품마스타 */
+entity GoodsMst {
+	/** 상품id */
+	id Long required,
+	/** 레몬상품종류 */
+	goodsType String required maxlength(20),
+	/** 상품명 */
+	goodsNm String required maxlength(50),
+	/** 자체상품코드 */
+	goodsCd String maxlength(20),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 판매여부 */
+	saleEnabled Boolean required,
+	/** 판매시작일 */
+	saleStartedOn Instant required,
+	/** 판매종료일 */
+	saleEndedOn Instant required,
+	/** 환불허용여부 */
+	refundEnabled Boolean required,
+	/** 취소허용여부 */
+	cancelEnabled Boolean required,
+	/** 소비자가격 */
+	consumerPrice Integer required,
+	/** 판매가격 */
+	price Integer required,
+	/** 과세여부 */
+	taxEnabled Boolean required,
+	/** 과세율 */
+	taxPercent Integer required,
+	/** 매입가격 */
+	buyAmt Integer,
+	/** 매입과세여부 */
+	buyTaxEnabled Boolean required,
+	/** 매입과세율 */
+	buyTaxPercent Integer,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 상품가격이력 */
+entity GoodsPriceHst {
+	/** 상품이력id */
+	id Long required,
+	/** 유효시작일 */
+	startedOn LocalDate required,
+	/** 유효종료일 */
+	endedOn LocalDate required,
+	/** 판매가격(V포함) */
+	price Integer required,
+	/** 매입가격(V포함) */
+	buyAmt Integer required,
+	/** 대행수수료(V포함) */
+	fee Integer required
+}
+
+/** 그룹정의 */
+entity GroupDef {
+	/** 그룹id */
+	id Long required,
+	/** 그룹명 */
+	groupNm String required maxlength(50),
+	/** 그룹명다국어 */
+	groupNmNls String maxlength(100),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 설명 */
+	groupDesc String required maxlength(200),
+	/** 서비스url */
+	serviceUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 그룹소속병원 */
+entity GroupMbr {
+	/** 그룹소속id */
+	id Long required,
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 관리자병원매핑 */
+entity HospitalAdminMap {
+	/** 매핑id */
+	id Long required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 교통정보 */
+entity HospitalDirections {
+	/** 교통정보id */
+	id Long required,
+	/** 교통편 */
+	transportNm String required maxlength(256),
+	/** 노선번호 */
+	transportLine String maxlength(256),
+	/** 하차지점 */
+	alightTxt String maxlength(256),
+	/** 방향 */
+	wayTxt String maxlength(500),
+	/** 거리 */
+	distanceTxt String maxlength(256),
+	/** 비고 */
+	remarkTxt String maxlength(500),
+	/** 수정일자 */
+	updatedOn Instant
+}
+
+/** 병원사진 */
+entity HospitalFile {
+	/** 파일id */
+	id Long required,
+	/** 파일이름 */
+	fileNm String required maxlength(100),
+	/** 파일uri */
+	fileUri String required maxlength(256),
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 이미지태그 */
+	hashTag String maxlength(256),
+	/** 썸네일url */
+	thumbUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 병원정보 */
+entity HospitalMst {
+	/** 병원id */
+	id Long required,
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 요양기관코드 */
+	hospitalCd String maxlength(20),
+	/** 병원명 */
+	hospitalNm String required maxlength(50),
+	/** 우편번호 */
+	postNo String maxlength(6),
+	/** 도로명주소 */
+	roadAddr String maxlength(120),
+	/** 지번주소 */
+	lotAddr String maxlength(120),
+	/** 대표전화 */
+	phoneNo String maxlength(30),
+	/** 다국어병원명 */
+	hospitalNmNls String maxlength(100),
+	/** 다국어주소 */
+	addrNls String maxlength(150),
+	/** QAB도메인 */
+	domainUrl String maxlength(256),
+	/** API주소 */
+	apiUrl String maxlength(256),
+	/** 입점오픈일 */
+	apiOpenDate LocalDate,
+	/** 개원일자 */
+	openDate LocalDate,
+	/** 홈페이지URL */
+	homeUrl String maxlength(256),
+	/** 병원소개내용 */
+	introContent TextBlob,
+	/** 로고URL */
+	logoUrl String maxlength(256),
+	/** 캠페인문구 */
+	campainTxt String maxlength(1000),
+	/** 오시는길 */
+	locationTxt String maxlength(1000),
+	/** 주차안내 */
+	parkingTxt String maxlength(1000),
+	/** 응급실안내 */
+	emergencyTxt String maxlength(1000),
+	/** 운영시간안내 */
+	openHoursTxt String maxlength(1000),
+	/** 휴일안내 */
+	holidayTxt String maxlength(1000),
+	/** 진료과목 */
+	treatTxt String maxlength(1000),
+	/** 해시태그 */
+	hashTag String maxlength(256),
+	/** 위도 */
+	latitude String maxlength(18),
+	/** 경도 */
+	longitude String maxlength(18),
+	/** 평점 */
+	starScore Float,
+	/** 리뷰개수 */
+	reviewCnt Integer,
+	/** 전체의사수 */
+	doctorCnt Integer,
+	/** 일반의수 */
+	gdoctorCnt Integer,
+	/** 전문의수 */
+	sdoctorCnt Integer,
+	/** 인턴수 */
+	idoctorCnt Integer,
+	/** 레지던트수 */
+	rdoctorCnt Integer,
+	/** 병원명약어 */
+	hospitalNmShort String maxlength(50),
+	/** 병원종별코드 */
+	hospitalType String maxlength(20),
+	/** 시도코드 */
+	metroCd String maxlength(20),
+	/** 시군구코드 */
+	cityCd String maxlength(20),
+	/** 병상수 */
+	bedCnt Integer,
+	/** 일내원환자수 */
+	dailyVisitCnt Integer,
+	/** 의료기관식별값 */
+	ykiho String maxlength(300),
+	/** 바코드규격 */
+	barcodeSpec String maxlength(20),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 병원레몬서비스 */
+entity HospitalService {
+	/** 서비스id */
+	id Long required,
+	/** 서비스코드 */
+	serviceCd String required maxlength(1),
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 시작일 */
+	startDate LocalDate required,
+	/** 종료일 */
+	endDate LocalDate required
+}
+
+/** 다국어정의 */
+entity I18nMsg {
+	/** 메세지id */
+	id Long required,
+	/** 언어코드 */
+	langCd String required maxlength(100),
+	/** 메시지코드 */
+	msgCd String required maxlength(100),
+	/** 메시지명 */
+	msgContent String required maxlength(1000),
+	/** 팝업종류 */
+	popupType String maxlength(10),
+	/** 팝업타이틀 */
+	popupTitle String maxlength(20),
+	/** 확인버튼명 */
+	okButtonNm String maxlength(20),
+	/** 취소버튼명 */
+	cancelButtonNm String maxlength(20),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 헬스기기정보 */
+entity IotDevice {
+	/** 기기코드 */
+	deviceCd String required maxlength(50),
+	/** 기기명 */
+	deviceNm String required maxlength(50),
+	/** 기기타입 */
+	deviceType String required maxlength(20)
+}
+
+/** 헬스기기인증 */
+entity IotDeviceCert {
+	/** 기기인증id */
+	id Long required,
+	/** 인증코드 */
+	iotCertCd String required maxlength(50),
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 헬스기기연동 */
+entity IotInterwork {
+	/** 연동기기id */
+	id Long required,
+	/** 연동아이디 */
+	interworkKey String required maxlength(50),
+	/** 상태 */
+	interworkState String required maxlength(20),
+	/** 생성일시 */
+	createdOn Instant required,
+	/** 삭제일시 */
+	deletedOn Instant
+}
+
+/** 헬스기기업체정보 */
+entity IotVender {
+	/** 업체코드 */
+	venderCd String required maxlength(20),
+	/** 업체명 */
+	venderNm String required maxlength(50)
+}
+
+/** 서비스정책관리 */
+entity LemonConfig {
+	/** 정책종류 */
+	policyCd String required maxlength(20),
+	/** 정책명 */
+	policyNm String required maxlength(50),
+	/** 레몬서비스코드 */
+	serviceCd String required maxlength(30),
+	/** 시작일시 */
+	startedOn Instant required,
+	/** 종료일시 */
+	endedOn Instant required,
+	/** 정책설명 */
+	policyDesc String required maxlength(1000),
+	/** 상한값 */
+	maxVal Float required,
+	/** 하한값 */
+	minVal Float required,
+	/** 리턴메시지 */
+	returnMsg String maxlength(200)
+}
+
+/** 개발자계정 */
+entity LemonDevAccnt {
+	accnt String required maxlength(30),
+	serviceCd String required maxlength(30),
+	securityCd String required maxlength(30),
+	returnUrl1 String maxlength(256),
+	returnUrl2 String maxlength(256),
+	returnUrl3 String maxlength(256),
+	returnUrl4 String maxlength(256),
+	returnUrl5 String maxlength(256),
+	authEnabled Boolean,
+	refreshEnabled Boolean
+}
+
+/** 단말기정보 */
+entity LemonDevice {
+	id Long required,
+	uuid String required maxlength(36),
+	pushToken String maxlength(2048),
+	platformType String required maxlength(20),
+	deviceVer String required maxlength(20),
+	modelNm String required maxlength(50)
+}
+
+/** 레몬패스 */
+entity LemonPass {
+	/** 레몬패스id */
+	id Long required,
+	/** 카드종류 */
+	cardType String required maxlength(20),
+	/** 카드사 */
+	cardVendor String required maxlength(50),
+	/** 카드명 */
+	cardNm String required maxlength(50),
+	/** 유효기간 */
+	expirationTxt String required maxlength(5),
+	/** 용도 */
+	usageCd String required maxlength(20),
+	/** CVC코드 */
+	cvcNo String maxlength(3),
+	/** 카드번호 */
+	cardNo String maxlength(20),
+	/** 카드이미지url */
+	imageUrl String maxlength(256),
+	/** 등록일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 레몬서비스 */
+entity LemonService {
+	serviceCd String required maxlength(30),
+	domain String required maxlength(50),
+	serviceNm String required maxlength(30),
+	certEnabled Boolean required,
+	jwtUri String maxlength(256),
+	apiUrl String maxlength(256),
+	initUri String maxlength(256),
+	siteUrl String maxlength(256),
+	hospitalCd String maxlength(20)
+}
+
+/** 통합회원매핑 */
+entity LemonUser {
+	id Long required,
+	siteUserId Long required,
+	accessToken String required maxlength(500),
+	refreshToken String required maxlength(500),
+	latestCertOn Instant required
+}
+
+/** 정적컨텐트 */
+entity MenuContent {
+	/** 컨텐트id */
+	id Long required,
+	/** 언어코드 */
+	nlsCd String required maxlength(10),
+	/** 컨텐트내용 */
+	htmlContent TextBlob required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 메뉴맞춤설정 */
+entity MenuCstm {
+	/** 맞춤설정id */
+	id Long required,
+	/** 속성키 */
+	attrKey String required maxlength(30),
+	/** 속성값 */
+	attrVal String required maxlength(200),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 메뉴정의 */
+entity MenuDef {
+	/** 메뉴id */
+	id Long required,
+	/** 레몬서비스코드 */
+	serviceCd String required maxlength(30),
+	/** 메뉴명 */
+	menuNm String required maxlength(50),
+	/** 메뉴명다국어 */
+	menuNmNls String maxlength(100),
+	/** 메뉴설명 */
+	menuDesc String maxlength(200),
+	/** 이미지url */
+	imgUrl String maxlength(256),
+	/** 서비스url */
+	serviceUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 서비스메뉴 */
+entity MenuService {
+	/** 서비스메뉴id */
+	id Long required,
+	/** 표시순서 */
+	menuOrd String required maxlength(256),
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 레벨 */
+	level Integer required,
+	/** 메뉴타입 */
+	menuType String required maxlength(20),
+	/** 재정의메뉴명 */
+	ovrdMenuNm String maxlength(100),
+	/** 재정의메뉴다국어 */
+	ovrdMenuNls String maxlength(100),
+	/** 재정의서비스url */
+	ovrdServiceUrl String maxlength(256),
+	/** 재정의이미지url */
+	ovrdImgUrl String maxlength(256),
+	/** 병원id */
+	hospitalId Long,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 공공_병원교통정보 */
+entity OpenDirections {
+	ykiho String required maxlength(400),
+	yadmnm String required maxlength(150),
+	trafnm String maxlength(100),
+	lineno String maxlength(100),
+	arivplc String maxlength(100),
+	dir String maxlength(100),
+	dist String maxlength(100),
+	rmk String maxlength(100)
+}
+
+/** 공공_의료장비정보 */
+entity OpenEquipment {
+	ykiho String required maxlength(400),
+	yadmnm String required maxlength(150),
+	oftcd String required maxlength(4),
+	oftcdnm String required maxlength(100),
+	oftcnt Integer required
+}
+
+/** 공공_병원정보 */
+entity OpenHospital {
+	ykiho String required maxlength(400),
+	yadmnm String required maxlength(150),
+	clcd String maxlength(2),
+	clcdnm String maxlength(150),
+	sidocd String maxlength(6),
+	sidocdnm String maxlength(150),
+	sggucd String maxlength(6),
+	sggucdnm String maxlength(150),
+	emdongnm String maxlength(150),
+	postno String maxlength(6),
+	addr String maxlength(500),
+	telno String maxlength(30),
+	hospurl String maxlength(500),
+	estbdd String maxlength(8),
+	xpos String maxlength(18),
+	ypos String maxlength(18),
+	drtotcnt Integer,
+	gdrcnt Integer,
+	intncnt Integer,
+	resdntcnt Integer,
+	sdrcnt Integer
+}
+
+/** 공공_병원세부정보 */
+entity OpenMedicalInfo {
+	ykiho String required maxlength(400),
+	yadmnm String required maxlength(150),
+	plcnm String maxlength(100),
+	plcdir String maxlength(100),
+	plcdist String maxlength(100),
+	parkqty Integer,
+	parkxpnsyn String maxlength(1),
+	parketc String maxlength(1000),
+	notrmtsun String maxlength(100),
+	notrmtholi String maxlength(100),
+	emydayyn String maxlength(1),
+	emydaytelno1 String maxlength(50),
+	emydaytelno2 String maxlength(50),
+	emyngtyn String maxlength(1),
+	emyngttelno1 String maxlength(50),
+	emyngttelno2 String maxlength(50),
+	lunchday String maxlength(100),
+	lunchsat String maxlength(100),
+	applystrday String maxlength(100),
+	applystrsat String maxlength(100),
+	dgstrsun String maxlength(4),
+	dgendsun String maxlength(4),
+	dgstrmon String maxlength(4),
+	dgendmon String maxlength(4),
+	dgstrtue String maxlength(4),
+	dgendtue String maxlength(4),
+	dgstrwed String maxlength(4),
+	dgendwed String maxlength(4),
+	dgstrthu String maxlength(4),
+	dgendthu String maxlength(4),
+	dgstrfri String maxlength(4),
+	dgendfri String maxlength(4),
+	dgstrsat String maxlength(4),
+	dgendsat String maxlength(4)
+}
+
+/** 공공_약국정보 */
+entity OpenPharmacy {
+	ykiho String required maxlength(300),
+	yadmnm String required maxlength(100),
+	clcd String required maxlength(2),
+	clcdnm String maxlength(20),
+	sidocd String maxlength(6),
+	sidocdnm String maxlength(100),
+	sggucd String maxlength(6),
+	sggucdnm String maxlength(100),
+	emdongnm String maxlength(100),
+	postno String maxlength(6),
+	addr String maxlength(300),
+	telno String maxlength(50),
+	estbdd String maxlength(8),
+	xpos String maxlength(18),
+	ypos String maxlength(18)
+}
+
+/** 공공_특수진료정보 */
+entity OpenSpclmdlrtinfo {
+	ykiho String required maxlength(400),
+	yadmnm String required maxlength(150),
+	srchcd String required maxlength(2),
+	srchcdnm String required maxlength(100)
+}
+
+/** 공공_진료과목 */
+entity OpenTreatment {
+	ykiho String required maxlength(400),
+	yadmnm String required maxlength(150),
+	dgsbjtcd String required maxlength(2),
+	dgsbjtcdnm String required maxlength(100),
+	dgsbjtprsdrcnt Integer required,
+	cdiagdrcnt Integer required
+}
+
+/** 주문상세내역 */
+entity OrderDetails {
+	/** 주문상세id */
+	id Long required,
+	/** 자체상품코드 */
+	goodsCd String maxlength(20),
+	/** 주문상품명 */
+	goodsNm String required maxlength(50),
+	/** 상품단가(V별도) */
+	unitPrice Integer required,
+	/** 부가세 */
+	unitVat Integer required,
+	/** 수수료(V별도) */
+	fee Integer,
+	/** 수수료부가세 */
+	feeVat Integer,
+	/** 주문수량 */
+	orderCnt Integer required,
+	/** 적립마일리지 */
+	saveMileage Integer,
+	/** 유효종료일자 */
+	expirationDate LocalDate
+}
+
+/** 상품주문 */
+entity OrderMst {
+	/** 주문id */
+	id Long required,
+	/** 레몬상품종류 */
+	goodsType String required maxlength(20),
+	/** 주문상태 */
+	orderStatus String required maxlength(20),
+	/** 주문명 */
+	orderNm String required maxlength(100),
+	/** 주문일시 */
+	orderedOn Instant required,
+	/** 상품금액(V별도) */
+	goodsTot Integer required,
+	/** 상품부가세 */
+	goodsVatTot Integer required,
+	/** 대행수수료(V별도) */
+	feeTot Integer required,
+	/** 수수료부가세 */
+	feeVatTot Integer required,
+	/** 배송비 */
+	deliveryFee Integer required,
+	/** 할인금액 */
+	discountAmt Integer required,
+	/** 환불금액 */
+	returnAmt Integer,
+	/** 성명 */
+	userNm String required maxlength(50),
+	/** 휴대폰번호 */
+	cellPhone String required maxlength(30),
+	/** 주문/환불메모 */
+	memo String maxlength(100),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 약국정보 */
+entity PharmacyInfo {
+	/** 약국id */
+	id Long required,
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 공공식별값 */
+	ykiho String maxlength(300),
+	/** 약국명 */
+	pharmacyNm String required maxlength(30),
+	/** 우편번호 */
+	postNo String maxlength(6),
+	/** 도로명주소 */
+	roadAddr String maxlength(120),
+	/** 지번주소 */
+	lotAddr String maxlength(120),
+	/** 대표전화 */
+	phoneNo String maxlength(20),
+	/** 운영시간안내 */
+	opHoursTxt String maxlength(500),
+	/** 해시태그 */
+	hashTag String maxlength(256),
+	/** 위도 */
+	latitude String maxlength(18),
+	/** 경도 */
+	longitude String maxlength(18),
+	/** 평점 */
+	starScore Float,
+	/** 리뷰개수 */
+	reviewCnt Integer,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일자 */
+	updatedOn Instant
+}
+
+/** 건강수첩 */
+entity PhrBook {
+	/** 건강기록id */
+	id Long required,
+	/** 측정일자 */
+	checkDate LocalDate required,
+	/** 측정값 */
+	checkValue Float required,
+	/** 측정시간 */
+	checkTm String minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
+	/** 측정시점코드 */
+	checkPointCd String maxlength(20),
+	/** 메모 */
+	checkMemo String maxlength(1000)
+}
+
+/** 측정항목가이드 */
+entity PhrGuide {
+	/** 시작값 */
+	startVal Float required,
+	/** 종료값 */
+	endVal Float required,
+	/** 건강평가명 */
+	evalNm String required maxlength(20),
+	/** 건강평가설명 */
+	evalTxt String maxlength(100)
+}
+
+/** 측정항목관리 */
+entity PhrItem {
+	/** 항목코드 */
+	itemCd String required maxlength(20),
+	/** 항목명 */
+	itemNm String required maxlength(50),
+	/** 측정최소값 */
+	minVal Float required,
+	/** 측정최대값 */
+	maxVal Float required,
+	/** 단위 */
+	checkUnit String required maxlength(10),
+	/** 정상수치문구 */
+	recommendTxt String maxlength(30),
+	/** 입력안내문구 */
+	memoTxt String maxlength(500)
+}
+
+/** 게시물 */
+entity Post {
+	/** 게시물id */
+	id Long required,
+	/** 제목 */
+	postTitle String required maxlength(100),
+	/** 게시내용 */
+	postContent TextBlob required,
+	/** 게시시작일시 */
+	startedOn Instant required,
+	/** 게시종료일시 */
+	endedOn Instant required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant,
+	/** 답변완료여부 */
+	replyEnabled Boolean,
+	/** 병원id */
+	hospitalId Long,
+	/** 이용병원명 */
+	hospitalNm String maxlength(30),
+	/** 진료과코드 */
+	treatDeptCd String maxlength(20),
+	/** 진료과명 */
+	treatDeptNm String maxlength(50),
+	/** 의사코드 */
+	doctorCd String maxlength(20),
+	/** 의사명 */
+	doctorNm String maxlength(30),
+	/** 평가점수 */
+	score Integer,
+	/** 이용일자 */
+	visitDate LocalDate,
+	/** 추천수 */
+	likeCnt Integer,
+	/** 문의병원명 */
+	reqHospitalNm String maxlength(20),
+	/** 문의자성명 */
+	guestNm String maxlength(20),
+	/** 이메일 */
+	email String maxlength(50),
+	/** 연락처 */
+	cellPhoneNo String maxlength(30),
+	/** FAQ분류 */
+	faqCls String maxlength(20),
+	/** FAQ표시순서 */
+	dispOrd String maxlength(10)
+}
+
+/** 게시물첨부파일 */
+entity PostFile {
+	/** 파일id */
+	id Long required,
+	/** 파일이름 */
+	fileNm String required maxlength(100),
+	/** 파일uri */
+	fileUri String required maxlength(256),
+	/** 파일크기 */
+	fileSize Integer required,
+	/** 파일유형 */
+	fileType String required maxlength(20),
+	/** 썸네일url */
+	thumbUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 게시물추천 */
+entity PostLikes {
+	/** 추천id */
+	id Long required,
+	/** 추천종류 */
+	likeType String required maxlength(20),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 게시물읽음관리 */
+entity PostRead {
+	/** 읽음id */
+	id Long required,
+	/** 읽음일시 */
+	readOn Instant required,
+	/** 사용자id */
+	userId Long,
+	/** 비회원식별값 */
+	unknownKey String maxlength(256)
+}
+
+/** 게시물답변 */
+entity PostReply {
+	/** 답변id */
+	id Long required,
+	/** 제목 */
+	replyTitle String required maxlength(100),
+	/** 답변내용 */
+	replyContent TextBlob required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 처방내역 */
+entity PrescribeLog {
+	/** 처방이력id */
+	id Long required,
+	/** 처방일시 */
+	treatedOn Instant required,
+	/** 진료과 */
+	treatDeptNm String required maxlength(50),
+	/** 담당의사명 */
+	doctorNm String required maxlength(30),
+	/** 처방번호 */
+	treatNo String required maxlength(100),
+	/** 처방전달상태 */
+	orderStatus String required maxlength(20),
+	/** 실손청구이력id */
+	insuClaimId Long,
+	/** QR코드 */
+	qrCd String maxlength(1024),
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 푸시수신이력 */
+entity PushLog {
+	id Long required,
+	readOn Instant,
+	receivedOn Instant,
+	resultMsg String maxlength(2048),
+	deletedOn Instant
+}
+
+/** 푸시메시지 */
+entity PushMessage {
+	id Long required,
+	contents TextBlob required,
+	fcmContents TextBlob required,
+	createdBy Long required,
+	createdOn Instant required
+}
+
+/** 푸시요청(수신자) */
+entity PushRequest {
+	id Long required,
+	uuid String required maxlength(36),
+	createdOn Instant required,
+	userId Long
+}
+
+/** 역할정의 */
+entity RoleDef {
+	/** 역할id */
+	id Long required,
+	/** 역할명 */
+	roleNm String required maxlength(50),
+	/** 설명 */
+	roleDesc String maxlength(1000),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 역할별메뉴설정 */
+entity RoleMenu {
+	/** 역할메뉴id */
+	id Long required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 역할별권한지정 */
+entity RolePrivilege {
+	/** 역할권한id */
+	id Long required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 서비스공급사 */
+entity SupplierMst {
+	/** 공급사id */
+	id Long required,
+	/** 공급사유형 */
+	supplierType String required maxlength(20),
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 공급사관리코드 */
+	supplierCd String maxlength(20),
+	/** 공급사명 */
+	supplierNm String required maxlength(50),
+	/** 대표자명 */
+	repNm String required maxlength(50),
+	/** 사업자번호 */
+	bizNo String required maxlength(10),
+	/** 대표전화번호 */
+	phoneNo String required maxlength(30),
+	/** 우편번호 */
+	postNo String maxlength(5),
+	/** 사업장도로명주소 */
+	addr1 String maxlength(128),
+	/** 사업장상세주소 */
+	addr2 String maxlength(128),
+	/** 정산방법 */
+	calculateType String maxlength(20),
+	/** 관리메모 */
+	memo String maxlength(1000),
+	/** 결제수단정책 */
+	payType String maxlength(20),
+	/** 환불허용여부 */
+	refundEnabled Boolean required,
+	/** 취소허용여부 */
+	cancelEnabled Boolean required,
+	/** 마일리지정책 */
+	mileageType String maxlength(20),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 이용약관 */
+entity TermsDef {
+	/** 약관id */
+	id Long required,
+	/** 버전 */
+	termsVer String required maxlength(50),
+	/** 기관구분 */
+	compType String required maxlength(20),
+	/** 기관코드 */
+	termsOwnerCd String required maxlength(20),
+	/** 사용여부 */
+	enabled Boolean required,
+	/** 약관내용 */
+	termsTxt TextBlob required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 약관변경이력 */
+entity TermsHst {
+	/** 약관이력id */
+	id Long required,
+	/** 약관시작일 */
+	startDate LocalDate required,
+	/** 약관종료일 */
+	endDate LocalDate required,
+	/** 약관내용 */
+	termsTxt TextBlob required
+}
+
+/** 약관종류 */
+entity TermsType {
+	/** 약관코드 */
+	termsCd String required maxlength(50),
+	/** 약관명 */
+	termsNm String required maxlength(50),
+	/** 필수여부 */
+	required Boolean required,
+	/** 약관종류 */
+	termsType String required maxlength(20),
+	/** 표시순서 */
+	dispOrd String required maxlength(10)
+}
+
+/** 진료내역 */
+entity TreatmentLog {
+	/** 진료이력id */
+	id Long required,
+	/** 예약신청일시 */
+	appointedOn Instant,
+	/** 진료일시 */
+	treatedOn Instant required,
+	/** 진료과 */
+	treatDeptNm String required maxlength(50),
+	/** 담당의사명 */
+	doctorNm String required maxlength(30),
+	/** 영수증번호 */
+	billNo String required maxlength(100),
+	/** 진료비총액 */
+	totalAmt Long required,
+	/** 공단부담금 */
+	nhisAmt Long required,
+	/** 영수금액 */
+	billAmt Long required,
+	/** 수납상태 */
+	paymentStatus String required maxlength(20),
+	/** 처방상태 */
+	orderStatus String required maxlength(20),
+	/** 입원외래구분 */
+	ioType String required maxlength(20),
+	/** 결제방법 */
+	paymentType String required maxlength(20),
+	/** 실손청구이력id */
+	insuClaimId Long,
+	/** 링크url */
+	linkUrl String maxlength(256),
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 화면제어설정 */
+entity UiControlDef {
+	/** 설정id */
+	id Long required,
+	/** 레몬서비스코드 */
+	serviceCd String required maxlength(30),
+	/** 기관구분 */
+	compType String required maxlength(20),
+	/** 기관코드 */
+	compCd String required maxlength(20),
+	/** 화면제어코드 */
+	ctrlKey String required maxlength(20),
+	/** 화면제어값 */
+	ctrlVal String required maxlength(50),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 통합인증 */
+entity UnionCert {
+	id Long required,
+	certType String required maxlength(20),
+	pwdChangedOn Instant,
+	accntLockedOn Instant,
+	pwdRetryCnt Integer,
+	snsType String maxlength(20),
+	uuid String maxlength(36),
+	accessToken String maxlength(500),
+	refreshToken String maxlength(500),
+	latestCertOn Instant,
+	simpleType String maxlength(20),
+	simplePwd String maxlength(256),
+	userAccnt String maxlength(30),
+	userPwd String maxlength(256)
+}
+
+/** 개인정보변경이력 */
+entity UnionChgLog {
+	id Long required,
+	userId Long required,
+	chgCd String required maxlength(20),
+	createdOn Instant required,
+	beforeText String required maxlength(256),
+	afterText String required maxlength(256)
+}
+
+/** 인증단말기 */
+entity UnionDevice {
+	id Long required,
+	createdBy Long required,
+	createdOn Instant required
+}
+
+/** 사용자비활성이력 */
+entity UnionInactiveLog {
+	id Long required,
+	userId Long required,
+	inactiveType String required maxlength(20),
+	inactivedOn Instant required,
+	activedOn Instant,
+	withdrawalType String maxlength(20),
+	withdrawalDesc String maxlength(100)
+}
+
+/** 로그인이력 */
+entity UnionLoginLog {
+	id Long required,
+	userId Long required,
+	logedOn Instant required,
+	authType String required maxlength(20),
+	loginType String required maxlength(20),
+	userAccnt String maxlength(50),
+	serviceCd String maxlength(30),
+	serviceNm String maxlength(30),
+	appNm String maxlength(50),
+	appVer String maxlength(20),
+	deviceUuid String maxlength(36)
+}
+
+/** 통합회원 */
+entity UnionUser {
+	id Long required,
+	userStatus Boolean required,
+	myCi String maxlength(256),
+	inactivedOn Instant,
+	withdrawalOn Instant,
+	userNm String maxlength(50),
+	birthday String maxlength(8),
+	sex String maxlength(1),
+	postNo String maxlength(6),
+	roadAddr1 String maxlength(120),
+	roadAddr2 String maxlength(100),
+	email String maxlength(50),
+	cellPhoneNo String maxlength(30),
+	telecomCd String maxlength(20),
+	countryCd String maxlength(20),
+	mileage Integer,
+	agreeOption String maxlength(50),
+	createdBy Long required,
+	createdOn Instant required,
+	updatedBy Long,
+	updatedOn Instant
+}
+
+/** 관리자정보 */
+entity UserAdmin {
+	/** 관리자상태 */
+	adminStatus String required maxlength(20),
+	/** 관리자레벨 */
+	adminLevel Integer required,
+	/** 신청일시 */
+	appliedOn Instant required,
+	/** 승인일시 */
+	approvedOn Instant
+}
+
+/** 사용자약관동의 */
+entity UserAgrmnt {
+	/** 약관동의id */
+	id Long required,
+	/** 동의일시 */
+	agreedOn Instant required
+}
+
+/** 선택동의이력 */
+entity UserAgrmntOpt {
+	/** 옵션동의id */
+	id Long required,
+	/** 발생일시 */
+	startedOn Instant required,
+	/** 동의상태 */
+	agreeState String required maxlength(20)
+}
+
+/** 사용자알림관리 */
+entity UserAlarm {
+	/** 알림id */
+	id Long required,
+	/** 알림종류 */
+	alarmType String required maxlength(20),
+	/** 알림메시지 */
+	alarmMsg String required maxlength(500),
+	/** 반복설정_요일 */
+	repeatDay String maxlength(30),
+	/** 반복주기 */
+	repeatCycle String maxlength(20),
+	/** 알림일시 */
+	alarmedOn Instant,
+	/** 알림시간 */
+	alarmTm String minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
+	/** 이동할url */
+	linkUrl String maxlength(256),
+	/** 알림상태 */
+	alarmEnabled Boolean required
+}
+
+/** 개인신체정보 */
+entity UserBodyInfo {
+	/** 신장 */
+	bodyHeight Float,
+	/** 체중 */
+	bodyWeight Float,
+	/** 허리둘레 */
+	bodyWaist Float,
+	/** 혈액형 */
+	bodyBlood String maxlength(1),
+	/** 목표체중 */
+	goalWeight Float,
+	/** 일일걸음수 */
+	dailyWalkCnt Integer,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 사용자대시보드 */
+entity UserDashboard {
+	/** 맞춤서비스id */
+	id Long required,
+	/** 예약수 */
+	reservationCnt Integer required,
+	/** 대기번호 */
+	waitingNo Integer,
+	/** 전자처방수 */
+	orderCnt Integer required,
+	/** 결제예정수 */
+	payCnt Integer required,
+	/** 실손청구예정수 */
+	insuCnt Integer required,
+	/** 수정일시 */
+	updatedOn Instant required
+}
+
+/** 즐겨찾는병원 */
+entity UserFavorite {
+	/** 즐겨찾기id */
+	id Long required,
+	/** 병원id */
+	hospitalId Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 개인추천상품 */
+entity UserGoods {
+	/** 추천상품id */
+	id Long required,
+	/** 목록이미지url */
+	thumbUrl String required maxlength(256),
+	/** 상품명 */
+	goodsNm String required maxlength(30),
+	/** 상품url */
+	goodsUrl String required maxlength(256),
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 나의병원 */
+entity UserHospital {
+	/** 나의병원id */
+	id Long required,
+	/** 환자번호 */
+	patientNo String required maxlength(100),
+	/** 가족관계유형 */
+	familyType String required maxlength(20),
+	/** 표시명 */
+	patientNm String required maxlength(50),
+	/** 암호알고리즘 */
+	encAlgo String required maxlength(36),
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant,
+	/** 표시순서 */
+	dispOrd String required maxlength(10)
+}
+
+/** 사용자메뉴 */
+entity UserMenu {
+	/** 사용자메뉴id */
+	id Long required,
+	/** 메뉴유형 */
+	menuType String required maxlength(20),
+	/** 노드레벨 */
+	level Integer required,
+	/** 표시순서 */
+	dispOrd String required maxlength(10),
+	/** 상속메뉴명 */
+	ovrdMenuNm String maxlength(50),
+	/** 상속서비스주소 */
+	ovrdServiceUrl String maxlength(256),
+	/** 상속이미지주소 */
+	ovrdImgUrl String maxlength(256),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 사용자기본 */
+entity UserMst {
+	/** 사용자id */
+	id Long required,
+	/** 회원상태 */
+	userStatus Boolean required,
+	/** 본인CI값 */
+	myCi String maxlength(256),
+	/** 휴면시작일시 */
+	inactivedOn Instant,
+	/** 회원탈퇴일시 */
+	withdrawalOn Instant,
+	/** 성명 */
+	userNm String maxlength(50),
+	/** 생년월일 */
+	birthday String maxlength(8),
+	/** 성별 */
+	sex String maxlength(1),
+	/** 우편번호 */
+	postNo String maxlength(6),
+	/** 도로명주소 */
+	roadAddr1 String maxlength(120),
+	/** 상세주소 */
+	roadAddr2 String maxlength(100),
+	/** 이메일 */
+	email String maxlength(50),
+	/** 휴대폰번호 */
+	cellPhoneNo String maxlength(30),
+	/** 통신사코드 */
+	telecomCd String maxlength(20),
+	/** 국적코드 */
+	countryCd String maxlength(20),
+	/** 마일리지 */
+	mileage Integer,
+	/** 이용동의선택 */
+	agreeOption String maxlength(50),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 포인트거래내역 */
+entity UserPointTran {
+	/** 이력id */
+	id Long required,
+	/** 사용적립구분 */
+	useType String required maxlength(20),
+	/** 발생일시 */
+	eventOn Instant required,
+	/** 결제금액 */
+	payAmt Integer,
+	/** 적립율 */
+	savePercent Integer,
+	/** 포인트값 */
+	point Integer required,
+	/** 유효종료일 */
+	endedOn Instant required,
+	/** 메모 */
+	memo String required maxlength(1000),
+	/** 게시물id */
+	postId Long,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 사용자역할배정 */
+entity UserRole {
+	/** 역할배정id */
+	id Long required,
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 일정관리 */
+entity UserSchedule {
+	/** 예약id */
+	id Long required,
+	/** 내일정일시 */
+	scheduledOn Instant required,
+	/** 일정종류명 */
+	scheduleTypeNm String required maxlength(50),
+	/** 진료과 */
+	treatDeptNm String required maxlength(50),
+	/** 담당의사명 */
+	doctorNm String maxlength(30),
+	/** 오실곳 */
+	placeNm String maxlength(50),
+	/** 수납상태 */
+	paymentStatus String required maxlength(20),
+	/** 예약상태 */
+	appointStatus String required maxlength(20),
+	/** 썸네일url */
+	thumbUrl String maxlength(256),
+	/** 링크url */
+	linkUrl String maxlength(256),
+	/** 일정진행상태 */
+	scheduleStep String required maxlength(20),
+	/** 예약시증상입력 */
+	symptomTxt String maxlength(200),
+	/** 생성일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+
+
+// Relations
+// 비회원약관동의
+relationship ManyToOne {
+	/** 약관id */
+	AnonymAgrmnt{termsDef required} to TermsDef{anonymAgrmnt}
+}
+
+// 앱플랫폼관리
+relationship ManyToOne {
+	/** 앱id */
+	AppPlatform{app required} to AppMst{appPlatform}
+}
+
+// 앱버전관리
+relationship ManyToOne {
+	/** 앱플랫폼id */
+	AppVersion{appPlatform required} to AppPlatform{appVersion}
+}
+
+// 자가진단참여답변
+relationship ManyToOne {
+	/** 진단참여id */
+	DiagnosisAnswer{join required} to DiagnosisJoin{diagnosisAnswer}
+}
+
+// 자가진단답변
+relationship ManyToOne {
+	/** 자가진단유형 */
+	DiagnosisChoice{diagnosisType required , itemNo required} to DiagnosisQuestion{diagnosisChoice}
+}
+
+// 자가진단지수설명
+relationship ManyToOne {
+	/** 자가진단유형 */
+	DiagnosisIndex{diagnosisType required} to DiagnosisInfo{diagnosisIndex}
+}
+
+// 자가진단참여
+relationship ManyToOne {
+	/** 사용자id */
+	DiagnosisJoin{user required} to UserMst{diagnosisJoin}
+}
+
+// 자가진단참여
+relationship ManyToOne {
+	/** 자가진단유형 */
+	DiagnosisJoin{diagnosisType required} to DiagnosisInfo{diagnosisJoin}
+}
+
+// 자가진단문항
+relationship ManyToOne {
+	/** 자가진단유형 */
+	DiagnosisQuestion{diagnosisType required} to DiagnosisInfo{diagnosisQuestion}
+}
+
+// 가족등록신청
+relationship ManyToOne {
+	/** 가족증명파일id */
+	FamilyApply{familyCert} to FamilyCertFile{familyApply}
+}
+
+// 가족관계증명파일
+relationship ManyToOne {
+	/** 사용자id */
+	FamilyCertFile{user required} to UserMst{familyCertFile}
+}
+
+// 이달의의료인
+relationship ManyToOne {
+	/** 병원id */
+	GoodDoctors{hospital} to HospitalMst{goodDoctors}
+}
+
+// 상품분류
+relationship ManyToOne {
+	/** 공급사id */
+	GoodsCategory{supplier} to SupplierMst{goodsCategory}
+}
+
+// 상품마스타
+relationship ManyToOne {
+	/** 분류id */
+	GoodsMst{cls required} to GoodsCategory{goodsMst}
+}
+
+// 상품가격이력
+relationship ManyToOne {
+	/** 상품id */
+	GoodsPriceHst{goods required} to GoodsMst{goodsPriceHst}
+}
+
+// 그룹소속병원
+relationship ManyToOne {
+	/** 그룹id */
+	GroupMbr{group required} to GroupDef{groupMbr}
+}
+
+// 그룹소속병원
+relationship ManyToOne {
+	/** 병원id */
+	GroupMbr{hospital required} to HospitalMst{groupMbr}
+}
+
+// 관리자병원매핑
+relationship ManyToOne {
+	/** 사용자id */
+	HospitalAdminMap{user required} to UserAdmin{hospitalAdminMap}
+}
+
+// 관리자병원매핑
+relationship ManyToOne {
+	/** 병원id */
+	HospitalAdminMap{hospital required} to HospitalMst{hospitalAdminMap}
+}
+
+// 교통정보
+relationship ManyToOne {
+	/** 병원id */
+	HospitalDirections{hospital required} to HospitalMst{hospitalDirections}
+}
+
+// 병원사진
+relationship ManyToOne {
+	/** 병원id */
+	HospitalFile{hospital required} to HospitalMst{hospitalFile}
+}
+
+// 병원레몬서비스
+relationship ManyToOne {
+	/** 병원id */
+	HospitalService{hospital required} to HospitalMst{hospitalService}
+}
+
+// 헬스기기정보
+relationship ManyToOne {
+	/** 업체코드 */
+	IotDevice{venderCd required} to IotVender{iotDevice}
+}
+
+// 헬스기기인증
+relationship ManyToOne {
+	/** 기기코드 */
+	IotDeviceCert{deviceCd required} to IotDevice{iotDeviceCert}
+}
+
+// 헬스기기연동
+relationship ManyToOne {
+	/** 사용자id */
+	IotInterwork{user required} to UserMst{iotInterwork}
+}
+
+// 헬스기기연동
+relationship ManyToOne {
+	/** 기기코드 */
+	IotInterwork{deviceCd required} to IotDevice{iotInterwork}
+}
+
+// 레몬패스
+relationship ManyToOne {
+	/** 사용자id */
+	LemonPass{user required} to UserMst{lemonPass}
+}
+
+// 통합회원매핑
+relationship ManyToOne {
+	LemonUser{serviceCd required} to LemonService{lemonUser}
+}
+
+// 통합회원매핑
+relationship ManyToOne {
+	LemonUser{user required} to UnionUser{lemonUser}
+}
+
+// 정적컨텐트
+relationship ManyToOne {
+	/** 서비스메뉴id */
+	MenuContent{menuService required} to MenuService{menuContent}
+}
+
+// 메뉴맞춤설정
+relationship ManyToOne {
+	/** 서비스메뉴id */
+	MenuCstm{menuService required} to MenuService{menuCstm}
+}
+
+// 서비스메뉴
+relationship ManyToOne {
+	/** 메뉴id */
+	MenuService{menu required} to MenuDef{menuService}
+}
+
+// 서비스메뉴
+relationship ManyToOne {
+	/** 상위메뉴id */
+	MenuService{up} to MenuService{menuService}
+}
+
+// 주문상세내역
+relationship ManyToOne {
+	/** 주문id */
+	OrderDetails{order required} to OrderMst{orderDetails}
+}
+
+// 주문상세내역
+relationship ManyToOne {
+	/** 상품id */
+	OrderDetail{goods required} to GoodsMst{orderDetails}
+}
+
+// 상품주문
+relationship ManyToOne {
+	/** 사용자id */
+	OrderMst{user required} to UserMst{orderMst}
+}
+
+// 건강수첩
+relationship ManyToOne {
+	/** 사용자id */
+	PhrBook{user required} to UserMst{phrBook}
+}
+
+// 건강수첩
+relationship ManyToOne {
+	/** 측정항목코드 */
+	PhrBook{checkCd required} to PhrItem{phrBook}
+}
+
+// 측정항목가이드
+relationship ManyToOne {
+	/** 항목코드 */
+	PhrGuide{itemCd required} to PhrItem{phrGuide}
+}
+
+// 게시물
+relationship ManyToOne {
+	/** 게시판id */
+	Post{board required} to Board{post}
+}
+
+// 게시물첨부파일
+relationship ManyToOne {
+	/** 게시물id */
+	PostFile{post required} to Post{postFile}
+}
+
+// 게시물추천
+relationship ManyToOne {
+	/** 게시물id */
+	PostLikes{post required} to Post{postLikes}
+}
+
+// 게시물읽음관리
+relationship ManyToOne {
+	/** 게시물id */
+	PostRead{post required} to Post{postRead}
+}
+
+// 게시물답변
+relationship ManyToOne {
+	/** 게시물id */
+	PostReply{post required} to Post{postReply}
+}
+
+// 처방내역
+relationship ManyToOne {
+	/** 사용자id */
+	PrescribeLog{user required} to UserMst{prescribeLog}
+}
+
+// 처방내역
+relationship ManyToOne {
+	/** 병원id */
+	PrescribeLog{hospital required} to HospitalMst{prescribeLog}
+}
+
+// 푸시수신이력
+relationship ManyToOne {
+	PushLog{request required} to PushRequest{pushLog}
+}
+
+// 푸시메시지
+relationship ManyToOne {
+	PushMessage{serviceCd required} to LemonService{pushMessage}
+}
+
+// 푸시요청(수신자)
+relationship ManyToOne {
+	PushRequest{message required} to PushMessage{pushRequest}
+}
+
+// 역할별메뉴설정
+relationship ManyToOne {
+	/** 메뉴id */
+	RoleMenu{menuService required} to MenuService{roleMenu}
+}
+
+// 역할별메뉴설정
+relationship ManyToOne {
+	/** 역할id */
+	RoleMenu{role required} to RoleDef{roleMenu}
+}
+
+// 역할별권한지정
+relationship OneToOne {
+	/** 역할id */
+	RolePrivilege{role required} to RoleDef{rolePrivilege}
+}
+
+// 이용약관
+relationship ManyToOne {
+	/** 약관코드 */
+	TermsDef{termsCd required} to TermsType{termsDef}
+}
+
+// 약관변경이력
+relationship ManyToOne {
+	/** 약관id */
+	TermsHst{termsDef required} to TermsDef{termsHst}
+}
+
+// 진료내역
+relationship ManyToOne {
+	/** 사용자id */
+	TreatmentLog{user required} to UserMst{treatmentLog}
+}
+
+// 진료내역
+relationship ManyToOne {
+	/** 병원id */
+	TreatmentLog{hospital required} to HospitalMst{treatmentLog}
+}
+
+// 통합인증
+relationship ManyToOne {
+	UnionCert{user required} to UnionUser{unionCert}
+}
+
+// 인증단말기
+relationship ManyToOne {
+	UnionDevice{cert required} to UnionCert{unionDevice}
+}
+
+// 인증단말기
+relationship ManyToOne {
+	UnionDevice{device required} to LemonDevice{unionDevice}
+}
+
+// 관리자정보
+relationship ManyToOne {
+	/** 사용자id */
+	UserAdmin{user required} to UserMst{userAdmin}
+}
+
+// 사용자약관동의
+relationship ManyToOne {
+	/** 사용자id */
+	UserAgrmnt{user required} to UserMst{userAgrmnt}
+}
+
+// 사용자약관동의
+relationship ManyToOne {
+	/** 약관id */
+	UserAgrmnt{termsDef required} to TermsDef{userAgrmnt}
+}
+
+// 선택동의이력
+relationship ManyToOne {
+	/** 사용자id */
+	UserAgrmntOpt{user required} to UserMst{userAgrmntOpt}
+}
+
+// 선택동의이력
+relationship ManyToOne {
+	/** 옵션코드 */
+	UserAgrmntOpt{optionCd required} to AgrmntSet{userAgrmntOpt}
+}
+
+// 사용자알림관리
+relationship ManyToOne {
+	/** 사용자id */
+	UserAlarm{user required} to UserMst{userAlarm}
+}
+
+// 개인신체정보
+relationship ManyToOne {
+	/** 사용자id */
+	UserBodyInfo{id required} to UserMst{userBodyInfo}
+}
+
+// 사용자대시보드
+relationship ManyToOne {
+	/** 사용자id */
+	UserDashboard{user required} to UserMst{userDashboard}
+}
+
+// 즐겨찾는병원
+relationship ManyToOne {
+	/** 사용자id */
+	UserFavorite{user required} to UserMst{userFavorite}
+}
+
+// 개인추천상품
+relationship ManyToOne {
+	/** 사용자id */
+	UserGoods{user required} to UserMst{userGoods}
+}
+
+// 나의병원
+relationship ManyToOne {
+	/** 사용자id */
+	UserHospital{user required} to UserMst{userHospital}
+}
+
+// 나의병원
+relationship ManyToOne {
+	/** 병원id */
+	UserHospital{hospital required} to HospitalMst{userHospital}
+}
+
+// 사용자메뉴
+relationship ManyToOne {
+	/** 사용자id */
+	UserMenu{user required} to UserMst{userMenu}
+}
+
+// 사용자메뉴
+relationship ManyToOne {
+	/** 메뉴id */
+	UserMenu{menu required} to MenuDef{userMenu}
+}
+
+// 사용자메뉴
+relationship ManyToOne {
+	/** 상위사용자메뉴id */
+	UserMenu{up} to UserMenu{userMenu}
+}
+
+// 포인트거래내역
+relationship ManyToOne {
+	/** 사용자id */
+	UserPointTran{user required} to UserMst{userPointTran}
+}
+
+// 포인트거래내역
+relationship ManyToOne {
+	/** 이벤트id */
+	UserPointTran{event required} to EventMst{userPointTran}
+}
+
+// 사용자역할배정
+relationship ManyToOne {
+	/** 사용자id */
+	UserRole{user required} to UserMst{userRole}
+}
+
+// 사용자역할배정
+relationship ManyToOne {
+	/** 역할id */
+	UserRole{role required} to RoleDef{userRole}
+}
+
+// 일정관리
+relationship ManyToOne {
+	/** 사용자id */
+	UserSchedule{user required} to UserMst{userSchedule}
+}
+
+// 일정관리
+relationship ManyToOne {
+	/** 병원id */
+	UserSchedule{hospital required} to HospitalMst{userSchedule}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

@@ -1,0 +1,407 @@
+/** 헬스기기정보 */
+entity IotDevice {
+	/** 기기코드 */
+	deviceCd String required maxlength(50),
+	/** 기기명 */
+	deviceNm String required maxlength(50),
+	/** 기기타입 */
+	deviceType String required maxlength(20)
+}
+
+/** 헬스기기인증 */
+entity IotDeviceCert {
+	/** 기기인증id */
+	id Long required,
+	/** 인증코드 */
+	iotCertCd String required maxlength(50),
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 헬스기기연동 */
+entity IotInterwork {
+	/** 연동기기id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 연동아이디 */
+	interworkKey String required maxlength(50),
+	/** 상태 */
+	interworkState String required maxlength(20),
+	/** 생성일시 */
+	createdOn Instant required,
+	/** 삭제일시 */
+	deletedOn Instant
+}
+
+/** 헬스기기업체정보 */
+entity IotVender {
+	/** 업체코드 */
+	venderCd String required maxlength(20),
+	/** 업체명 */
+	venderNm String required maxlength(50)
+}
+
+/** 레몬패스 */
+entity LemonPass {
+	/** 레몬패스id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 카드종류 */
+	cardType String required maxlength(20),
+	/** 카드사 */
+	cardVendor String required maxlength(50),
+	/** 카드명 */
+	cardNm String required maxlength(50),
+	/** 유효기간 */
+	expirationTxt String required maxlength(5),
+	/** 용도 */
+	usageCd String required maxlength(20),
+	/** CVC코드 */
+	cvcNo String maxlength(3),
+	/** 카드번호 */
+	cardNo String maxlength(20),
+	/** 카드이미지url */
+	imageUrl String maxlength(256),
+	/** 등록일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 상품주문 */
+entity OrderMst {
+	/** 주문id */
+	id Long required,
+	/** 레몬상품종류 */
+	goodsType String required maxlength(20),
+	/** 주문상태 */
+	orderStatus String required maxlength(20),
+	/** 주문명 */
+	orderNm String required maxlength(100),
+	/** 주문일시 */
+	orderedOn Instant required,
+	/** 상품금액(V별도) */
+	goodsTot Integer required,
+	/** 상품부가세 */
+	goodsVatTot Integer required,
+	/** 대행수수료(V별도) */
+	feeTot Integer required,
+	/** 수수료부가세 */
+	feeVatTot Integer required,
+	/** 배송비 */
+	deliveryFee Integer required,
+	/** 할인금액 */
+	discountAmt Integer required,
+	/** 환불금액 */
+	returnAmt Integer,
+	/** 사용자id */
+	userId Long required,
+	/** 성명 */
+	userNm String required maxlength(50),
+	/** 휴대폰번호 */
+	cellPhone String required maxlength(30),
+	/** 주문/환불메모 */
+	memo String maxlength(100),
+	/** 입력자id */
+	createdBy Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정자id */
+	updatedBy Long,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 건강수첩 */
+entity PhrBook {
+	/** 건강기록id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 측정일자 */
+	checkDate LocalDate required,
+	/** 측정값 */
+	checkValue Float required,
+	/** 측정시간 */
+	checkTm String minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
+	/** 측정시점코드 */
+	checkPointCd String maxlength(20),
+	/** 메모 */
+	checkMemo String maxlength(1000)
+}
+
+/** 측정항목가이드 */
+entity PhrGuide {
+	/** 시작값 */
+	startVal Float required,
+	/** 종료값 */
+	endVal Float required,
+	/** 건강평가명 */
+	evalNm String required maxlength(20),
+	/** 건강평가설명 */
+	evalTxt String maxlength(100)
+}
+
+/** 측정항목관리 */
+entity PhrItem {
+	/** 항목코드 */
+	itemCd String required maxlength(20),
+	/** 항목명 */
+	itemNm String required maxlength(50),
+	/** 측정최소값 */
+	minVal Float required,
+	/** 측정최대값 */
+	maxVal Float required,
+	/** 단위 */
+	checkUnit String required maxlength(10),
+	/** 정상수치문구 */
+	recommendTxt String maxlength(30),
+	/** 입력안내문구 */
+	memoTxt String maxlength(500)
+}
+
+/** 처방내역 */
+entity PrescribeLog {
+	/** 처방이력id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 병원id */
+	hospitalId Long required,
+	/** 처방일시 */
+	treatedOn Instant required,
+	/** 진료과 */
+	treatDeptNm String required maxlength(50),
+	/** 담당의사명 */
+	doctorNm String required maxlength(30),
+	/** 처방번호 */
+	treatNo String required maxlength(100),
+	/** 처방전달상태 */
+	orderStatus String required maxlength(20),
+	/** 실손청구이력id */
+	insuClaimId Long,
+	/** QR코드 */
+	qrCd String maxlength(1024),
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 진료내역 */
+entity TreatmentLog {
+	/** 진료이력id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 병원id */
+	hospitalId Long required,
+	/** 예약신청일시 */
+	appointedOn Instant,
+	/** 진료일시 */
+	treatedOn Instant required,
+	/** 진료과 */
+	treatDeptNm String required maxlength(50),
+	/** 담당의사명 */
+	doctorNm String required maxlength(30),
+	/** 영수증번호 */
+	billNo String required maxlength(100),
+	/** 진료비총액 */
+	totalAmt Long required,
+	/** 공단부담금 */
+	nhisAmt Long required,
+	/** 영수금액 */
+	billAmt Long required,
+	/** 수납상태 */
+	paymentStatus String required maxlength(20),
+	/** 처방상태 */
+	orderStatus String required maxlength(20),
+	/** 입원외래구분 */
+	ioType String required maxlength(20),
+	/** 결제방법 */
+	paymentType String required maxlength(20),
+	/** 실손청구이력id */
+	insuClaimId Long,
+	/** 링크url */
+	linkUrl String maxlength(256),
+	/** 입력일시 */
+	createdOn Instant required
+}
+
+/** 사용자알림관리 */
+entity UserAlarm {
+	/** 알림id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 알림종류 */
+	alarmType String required maxlength(20),
+	/** 알림메시지 */
+	alarmMsg String required maxlength(500),
+	/** 반복설정_요일 */
+	repeatDay String maxlength(30),
+	/** 반복주기 */
+	repeatCycle String maxlength(20),
+	/** 알림일시 */
+	alarmedOn Instant,
+	/** 알림시간 */
+	alarmTm String minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
+	/** 이동할url */
+	linkUrl String maxlength(256),
+	/** 알림상태 */
+	alarmEnabled Boolean required
+}
+
+/** 사용자대시보드 */
+entity UserDashboard {
+	/** 맞춤서비스id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 예약수 */
+	reservationCnt Integer required,
+	/** 대기번호 */
+	waitingNo Integer,
+	/** 전자처방수 */
+	orderCnt Integer required,
+	/** 결제예정수 */
+	payCnt Integer required,
+	/** 실손청구예정수 */
+	insuCnt Integer required,
+	/** 수정일시 */
+	updatedOn Instant required
+}
+
+/** 즐겨찾는병원 */
+entity UserFavorite {
+	/** 즐겨찾기id */
+	id Long required,
+	/** 병원id */
+	hospitalId Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 개인추천상품 */
+entity UserGoods {
+	/** 추천상품id */
+	id Long required,
+	/** 목록이미지url */
+	thumbUrl String required maxlength(256),
+	/** 상품명 */
+	goodsNm String required maxlength(30),
+	/** 상품url */
+	goodsUrl String required maxlength(256),
+	/** 사용자id */
+	userId Long required,
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+/** 나의병원 */
+entity UserHospital {
+	/** 나의병원id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 병원id */
+	hospitalId Long required,
+	/** 환자번호 */
+	patientNo String required maxlength(100),
+	/** 가족관계유형 */
+	familyType String required maxlength(20),
+	/** 표시명 */
+	patientNm String required maxlength(50),
+	/** 암호알고리즘 */
+	encAlgo String required maxlength(36),
+	/** 입력일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant,
+	/** 표시순서 */
+	dispOrd String required maxlength(10)
+}
+
+/** 일정관리 */
+entity UserSchedule {
+	/** 예약id */
+	id Long required,
+	/** 사용자id */
+	userId Long required,
+	/** 병원id */
+	hospitalId Long required,
+	/** 내일정일시 */
+	scheduledOn Instant required,
+	/** 일정종류명 */
+	scheduleTypeNm String required maxlength(50),
+	/** 진료과 */
+	treatDeptNm String required maxlength(50),
+	/** 담당의사명 */
+	doctorNm String maxlength(30),
+	/** 오실곳 */
+	placeNm String maxlength(50),
+	/** 수납상태 */
+	paymentStatus String required maxlength(20),
+	/** 예약상태 */
+	appointStatus String required maxlength(20),
+	/** 썸네일url */
+	thumbUrl String maxlength(256),
+	/** 링크url */
+	linkUrl String maxlength(256),
+	/** 일정진행상태 */
+	scheduleStep String required maxlength(20),
+	/** 예약시증상입력 */
+	symptomTxt String maxlength(200),
+	/** 생성일시 */
+	createdOn Instant required,
+	/** 수정일시 */
+	updatedOn Instant
+}
+
+
+
+// Relations
+// 헬스기기정보
+relationship ManyToOne {
+	/** 업체코드 */
+	IotDevice{venderCd required} to IotVender{iotDevice}
+}
+
+// 헬스기기인증
+relationship ManyToOne {
+	/** 기기코드 */
+	IotDeviceCert{deviceCd required} to IotDevice{iotDeviceCert}
+}
+
+// 헬스기기연동
+relationship ManyToOne {
+	/** 기기코드 */
+	IotInterwork{deviceCd required} to IotDevice{iotInterwork}
+}
+
+// 건강수첩
+relationship ManyToOne {
+	/** 측정항목코드 */
+	PhrBook{checkCd required} to PhrItem{phrBook}
+}
+
+// 측정항목가이드
+relationship ManyToOne {
+	/** 항목코드 */
+	PhrGuide{itemCd required} to PhrItem{phrGuide}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

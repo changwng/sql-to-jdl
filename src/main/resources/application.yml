@@ -6,9 +6,11 @@ logging:
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+#       url: jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+#       url: jdbc:mysql://localhost:3306/lemongod?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/auth?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
         username: root
-        password:
+        password: cw8904
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -20,7 +22,7 @@ spring:
 
 
 application:
-    database-to-export: my_database_name
+    database-to-export: auth
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
@@ -35,6 +37,10 @@ application:
         - QRTZ_SIMPLE_TRIGGERS
         - QRTZ_SIMPROP_TRIGGERS
         - QRTZ_TRIGGERS
+        - oauth_access_token
+        - oauth_approvals
+        - oauth_code
+        - oauth_refresh_token
     export:
-        path: ./my-project-jdl.jh
+        path: ./11.0415_goh_auth.jdl
         type: jdl

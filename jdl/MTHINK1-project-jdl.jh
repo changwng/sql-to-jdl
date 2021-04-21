@@ -1,0 +1,2125 @@
+/** 첨부파일 */
+entity AddFile {
+	/** 파일ID */
+	fileId Long required,
+	/** 컨텐트종류(기초코드:320) */
+	contentType String maxlength(30),
+	/** 파일명 */
+	fileName String required maxlength(1024),
+	/** 저장경로 */
+	savePath String required maxlength(256),
+	/** 파일확장자 */
+	fileExt String maxlength(30),
+	/** 파일크기 */
+	fileSize BigDecimal required,
+	/** 이미지너비 */
+	width BigDecimal,
+	/** 이미지높이 */
+	height BigDecimal,
+	/** 이미지URL */
+	webUrl String required maxlength(1024),
+	/** 등록일시 */
+	regDatetime Instant,
+	/** 등록키(사용자ID,채널ID...형변환주의) */
+	regKey String required maxlength(10),
+	/** 등록구분(USER,CHNL...) */
+	regType String required maxlength(4),
+	/** 삭제여부 */
+	delYn String maxlength(1),
+	/** 삭제일시 */
+	delDatetime Instant,
+	/** MIME타입 */
+	mimeType String maxlength(30)
+}
+
+entity AddFileThumb {
+	thumbType String required maxlength(30),
+	thumbWidth BigDecimal,
+	thumbHeight BigDecimal,
+	thumbUrl String required maxlength(100)
+}
+
+entity AlarmCenter {
+	userId BigDecimal required,
+	pushId BigDecimal required,
+	alarmTimestamp Instant required,
+	regUserId BigDecimal,
+	alarmContent TextBlob required,
+	eventType BigDecimal,
+	pushState BigDecimal,
+	eventState BigDecimal,
+	refId BigDecimal required,
+	readYn String maxlength(1),
+	updDatetime Instant required,
+	/** 알람센터 수정일자(캐시용) */
+	delYn String required maxlength(1)
+}
+
+entity AppHistory {
+	appVer String required maxlength(30),
+	platformCode String required maxlength(30),
+	publishDatetime Instant required,
+	contentHtml String required maxlength(4000),
+	lastVerYn String required maxlength(1),
+	downloadUrl String maxlength(100)
+}
+
+entity AttrGrp {
+	attrId Long required,
+	attrName String required maxlength(100),
+	attrCol1 String required maxlength(100),
+	attrCol2 String required maxlength(100),
+	attrCol3 String required maxlength(100),
+	sqlFrom String required maxlength(1000),
+	sqlWhere String required maxlength(1000)
+}
+
+entity AttrGrpGateway {
+	attrId BigDecimal required,
+	seq BigDecimal required,
+	attrCode String required maxlength(30),
+	attrValue String required maxlength(100),
+	userNo String required maxlength(30)
+}
+
+entity BatchErrLog {
+	exeTimestamp Instant required,
+	procedureName String required maxlength(100),
+	processName String maxlength(100),
+	errText String required maxlength(4000),
+	custId Long required
+}
+
+/** 벌크데이터 */
+entity BulkData {
+	/** 순서 */
+	seq Long required,
+	/** 고객사ID */
+	custId Long required,
+	/** 벌크명칭 */
+	bulkName String required maxlength(200),
+	/** 벌크SQL */
+	bulkSql TextBlob required,
+	/** 등록자ID */
+	regUserId Long required,
+	/** 등록일시 */
+	regDatetime Instant required,
+	/** 수정일시 */
+	updDatetime Instant,
+	/** 공개여부 */
+	isPublic String required maxlength(1)
+}
+
+entity BundleText {
+	bundleType String required maxlength(30),
+	bundleContext String required maxlength(100)
+}
+
+entity BussAuthGrp {
+	bussAuthGrpId Long required,
+	bussAuthGrpName String maxlength(100),
+	custId Long,
+	smsCalcUserid String maxlength(20),
+	deptCode String maxlength(30),
+	smsYn String maxlength(1)
+}
+
+entity BussAuthMbr {
+	userId BigDecimal required
+}
+
+entity BussCat {
+	bussCatId Long required,
+	bussName String required maxlength(90),
+	upBussId BigDecimal,
+	lvl BigDecimal required,
+	sortSeq BigDecimal required,
+	custId Long required
+}
+
+entity BussCatCondition {
+	seq BigDecimal required,
+	dispName String required maxlength(60),
+	parm1 String required maxlength(100),
+	parm1Value String maxlength(100),
+	parm2 String maxlength(100),
+	parm2Value String maxlength(100),
+	attrType String required maxlength(100),
+	componentType String required maxlength(30),
+	operatorType String required maxlength(30),
+	sqlContent String maxlength(4000),
+	relSeq BigDecimal,
+	cascadeYn String required maxlength(1),
+	filterOrd BigDecimal
+}
+
+entity BussSendList {
+	userId BigDecimal required,
+	tttUserYn String required maxlength(1),
+	userType String required maxlength(30),
+	userNo String required maxlength(30),
+	rcvUserId BigDecimal,
+	userTypeName String maxlength(30),
+	deptName String maxlength(120),
+	userName String maxlength(60),
+	sex String maxlength(1),
+	appInstallYn String required maxlength(1),
+	tel String maxlength(20)
+}
+
+entity BussSendListExcel {
+	userId BigDecimal required,
+	bussCatId Long required,
+	userNo String required maxlength(30)
+}
+
+/** 업무분류SQL */
+entity BussSql {
+	/** 고객사ID */
+	custId Long required,
+	/** 고객사DB정보의 서버명 */
+	serverName String required maxlength(100),
+	/** 업무분류SQL */
+	sqlContent String required maxlength(4000),
+	/** 사용여부 */
+	useYn String required maxlength(1)
+}
+
+entity BussSqlGateway {
+	bussCatId Long required,
+	userId BigDecimal required,
+	seq BigDecimal required,
+	userType String required maxlength(30),
+	userNo String required maxlength(30)
+}
+
+/** 업무분류SQL전송유형 */
+entity BussSqlTransfer {
+	/** 전송유형코드(510) */
+	transfer String required maxlength(2)
+}
+
+/** 채널권한 */
+entity ChannelAuth {
+	/** 신분구분(교원,직원,학생 등) */
+	userType String required maxlength(30)
+}
+
+entity ChannelMain {
+	chnlId Long required,
+	chnlName String required maxlength(100),
+	chnlAddress String required maxlength(256),
+	accessKey String required maxlength(256),
+	fileId BigDecimal,
+	regDate LocalDate required,
+	useYn String required maxlength(1),
+	optChnlUserid String required maxlength(1),
+	custId Long,
+	chnlType String maxlength(30),
+	chnlDesc String maxlength(1024),
+	/** 채널 코멘트서비스 여부  (1.코멘트 서비스 ,0.코멘트 서비스안함) */
+	cmntSrvYn String required maxlength(1)
+}
+
+/** 채널관리자 */
+entity ChannelMgr {
+	/** 등록일시 */
+	regDatetime Instant required
+}
+
+entity ChannelSubscribe {
+	userId BigDecimal required,
+	chnlUserId String maxlength(64),
+	chnlPasswd String maxlength(256),
+	regDate LocalDate required,
+	updDatetime Instant required,
+	syncYn String required maxlength(1)
+}
+
+/** 채널전송유형 */
+entity ChannelTransfer {
+	/** 전송유형코드(510) */
+	transfer String required maxlength(2)
+}
+
+entity ChattContent {
+	messageId String required maxlength(64),
+	regDatetime Instant required,
+	regUserId BigDecimal required,
+	chattContent String required maxlength(4000),
+	contentType String required maxlength(30)
+}
+
+entity ChattJoin {
+	joinUserId BigDecimal required,
+	dispName String maxlength(60),
+	imageUrl String maxlength(100),
+	joinDatetime Instant,
+	exitDatetime Instant
+}
+
+entity ChattRead {
+	readUserId BigDecimal required,
+	readDatetime Instant
+}
+
+entity ChattRemove {
+	userId BigDecimal required,
+	removeDatetime Instant
+}
+
+entity ChattRoom {
+	chattRoomId Long required,
+	chattRoomName String maxlength(300),
+	openUserId BigDecimal,
+	openDatetime Instant,
+	updDatetime Instant,
+	chattRoomType String maxlength(30),
+	grpId BigDecimal,
+	leaveUserId BigDecimal,
+	/** 1:1채팅 상대사용자 ID(채팅룸 넘버 재사용) */
+	otoUserId BigDecimal
+}
+
+/** 채널구독자SQL */
+entity ChnlSubscrSql {
+	/** CSS순번 */
+	cssSeq Integer required,
+	/** SQL제목 */
+	sqlName String required maxlength(100),
+	/** SQL구문 */
+	sqlContent String required maxlength(4000),
+	/** 동기화여부 */
+	syncYn String required maxlength(1)
+}
+
+/** 채널구독자SQL GATEWAY */
+entity ChnlSubscrSqlGateway {
+	/** 채널ID */
+	chnlId Long required,
+	/** CSS순번 */
+	cssSeq Integer required,
+	/** 사용자번호 */
+	userNo String required maxlength(30)
+}
+
+entity ClientLog {
+	clientId String required maxlength(38),
+	logTimestamp Instant required,
+	logType String required maxlength(20),
+	logCode String maxlength(20),
+	logContents String maxlength(4000)
+}
+
+entity ConnGrp {
+	connGrpId Long required,
+	connGrpName String required maxlength(100),
+	mbrCol1 String required maxlength(100),
+	mbrCol2 String required maxlength(100),
+	mbrCol3 String required maxlength(100),
+	mbrCol5 String required maxlength(100),
+	mbrFrom String required maxlength(2000),
+	mbrWhere String required maxlength(1000),
+	ownerCol1 String maxlength(100),
+	ownerCol2 String maxlength(100),
+	ownerCol3 String maxlength(100),
+	ownerCol5 String maxlength(100),
+	ownerFrom String maxlength(1000),
+	ownerWhere String maxlength(1000),
+	extUserAddYn String maxlength(30),
+	syncYn String required maxlength(1)
+}
+
+entity ConnGrpGateway {
+	connGrpId BigDecimal required,
+	seq BigDecimal required,
+	attrCode String maxlength(100),
+	attrValue String maxlength(100),
+	userNo String required maxlength(30),
+	grpOwnerYn String required maxlength(1)
+}
+
+entity ConnGrpResult {
+	connResultId Long required,
+	attrCode String maxlength(30),
+	attrValue String maxlength(100),
+	userId BigDecimal required,
+	grpOwnerYn String required maxlength(1)
+}
+
+entity ConnGrpStd {
+	connGrpId BigDecimal required,
+	connGrpName String required maxlength(100),
+	mbrCol1 String required maxlength(100),
+	mbrCol2 String required maxlength(100),
+	mbrCol3 String required maxlength(100),
+	mbrCol5 String required maxlength(100),
+	mbrFrom String required maxlength(2000),
+	mbrWhere String required maxlength(1000),
+	ownerCol1 String maxlength(100),
+	ownerCol2 String maxlength(100),
+	ownerCol3 String maxlength(100),
+	ownerCol5 String maxlength(100),
+	ownerFrom String maxlength(1000),
+	ownerWhere String maxlength(1000),
+	serverName String required maxlength(100)
+}
+
+entity CustConnInfo {
+	smsCost BigDecimal,
+	lmsCost BigDecimal,
+	mmsCost BigDecimal,
+	faxCost BigDecimal,
+	telecomAccnt String maxlength(30),
+	appUrn String maxlength(100),
+	serviceUrl String maxlength(100),
+	topicFormat String maxlength(100),
+	fyYear String maxlength(4),
+	smsFiAccnt String maxlength(20),
+	smsInsertCursor String maxlength(4000),
+	smsInsertSql String maxlength(4000),
+	smsUpdateSql String maxlength(4000),
+	smsResultCursor String maxlength(4000),
+	smsResultUpdateSql String maxlength(4000),
+	serverName String maxlength(100)
+}
+
+entity CustDept {
+	deptCode String required maxlength(30),
+	deptName String maxlength(120),
+	deptSimpleName String maxlength(120),
+	upDeptCode String maxlength(30),
+	lvl BigDecimal required,
+	sortSeq String maxlength(30),
+	useYn String required maxlength(1),
+	originalDeptYn String maxlength(1)
+}
+
+entity CustDeptGateway {
+	custId Long required,
+	deptCode String required maxlength(30),
+	deptName String maxlength(120),
+	deptSimpleName String maxlength(120),
+	upDeptCode String maxlength(30),
+	lvl BigDecimal,
+	sortSeq String maxlength(30)
+}
+
+entity CustDeptLeader {
+	deptCode String required maxlength(30),
+	userNo String required maxlength(30)
+}
+
+/** 고객사의 조직데이터 여러개의 항목을 가져와서 POOL에 관리 */
+entity CustDeptPool {
+	/** 고객사ID */
+	custId Long required,
+	/** JobID */
+	jobId Long required,
+	/** 부서코드 */
+	deptCode String required maxlength(30),
+	/** 부서명 */
+	deptName String maxlength(120),
+	/** 부서명(간단) */
+	deptSimpleName String maxlength(120),
+	/** 상위부서코드 */
+	upDeptCode String maxlength(30),
+	/** 부서레벨 */
+	lvl BigDecimal,
+	/** 출력순서 */
+	sortSeq String maxlength(30),
+	/** Job 실행일자 */
+	regDatetime Instant required
+}
+
+entity CustDeptTemp {
+	deptCode String required maxlength(30),
+	deptName String maxlength(120),
+	deptSimpleName String maxlength(120),
+	upDeptCode String maxlength(30),
+	lvl BigDecimal,
+	sortSeq String maxlength(30)
+}
+
+entity CustFaq {
+	faqId BigDecimal required,
+	faqTitle String required maxlength(200),
+	faqContent String required maxlength(4000),
+	inputDate LocalDate required
+}
+
+entity CustInfo {
+	custId Long required,
+	custName String required maxlength(100),
+	ceoName String required maxlength(30),
+	joinDate LocalDate required,
+	managerName String required maxlength(30),
+	grpOpenMethod String required maxlength(1),
+	domainName String maxlength(60),
+	custType String maxlength(1)
+}
+
+entity CustLic {
+	licCode String required maxlength(30),
+	startDatetime Instant required,
+	endDatetime Instant required,
+	licUserCnt BigDecimal required,
+	licVer String required maxlength(30),
+	useYn String required maxlength(1)
+}
+
+entity CustManager {
+	/** 접근권한코드 220 0.해제, 1.읽기, 2.생성/수정/삭제 */
+	aclCode String required maxlength(30),
+	/** 권한부여일시 */
+	regDatetime Instant,
+	/** 권한해제일시 */
+	relDatetime Instant,
+	/** IP제한 시작주소 */
+	frIpAddr String maxlength(20),
+	/** IP제한 종료주소 */
+	toIpAddr String maxlength(20)
+}
+
+entity CustNotice {
+	noticeId Long required,
+	noticeType String required maxlength(30),
+	noticeTitle String required maxlength(200),
+	noticeContent String required maxlength(4000),
+	regDatetime Instant required
+}
+
+entity CustOpt {
+	optCode String required maxlength(30),
+	optValue String required maxlength(100)
+}
+
+entity DbInfo {
+	serverName String required maxlength(100),
+	dbVandor String required maxlength(30),
+	dbVersion String required maxlength(30),
+	dbName String required maxlength(30),
+	serverIp String required maxlength(100),
+	serviceName String required maxlength(30),
+	servicePort BigDecimal required,
+	dbAccnt String required maxlength(30),
+	dbPasswd String required maxlength(256)
+}
+
+entity DeleteHistory {
+	deleteDate LocalDate required,
+	deleteType String required maxlength(30),
+	userId BigDecimal required,
+	baseDate LocalDate required
+}
+
+/** V_DEPT_TREE 속도 향상위한 테이블 mariadb에서만 그룹정의시 사용 */
+entity DeptTreeT {
+	/** 고객사ID */
+	custId Long required,
+	/** 부서코드 */
+	deptCode String required maxlength(30),
+	/** 부서명 */
+	deptName String maxlength(120),
+	/** 부서명축약 */
+	deptSimpleName String maxlength(120),
+	/** 부서레벨 */
+	deptLvl BigDecimal required,
+	/** 상위부서코드 */
+	upDeptCd String maxlength(30),
+	/** 노드코드 */
+	nodeCode String maxlength(255),
+	/** 노드명칭 */
+	nodeName String maxlength(255),
+	/** 부서순서 */
+	deptSort String maxlength(255)
+}
+
+entity DetailCode {
+	minorCode String required maxlength(30),
+	minorName String required maxlength(100),
+	refValue String maxlength(100),
+	orderSeq String required maxlength(30)
+}
+
+entity DetailCodeNls {
+	minorCode String required maxlength(30),
+	nlsCode String required maxlength(30),
+	minorName String required maxlength(100),
+	refValue String maxlength(100),
+	orderSeq String required maxlength(30)
+}
+
+entity DummyCalendar {
+	dummyDate LocalDate required,
+	yyyy String required maxlength(4),
+	mm String required maxlength(2),
+	dd String required maxlength(2)
+}
+
+/** 피드채널 */
+entity FeedChnl {
+	/** 전송유형코드(510) */
+	transfer String required maxlength(2)
+}
+
+entity FeedCmnt {
+	feedCmntId Long required,
+	regUserId BigDecimal required,
+	regDatetime Instant required,
+	commentContent TextBlob,
+	updDatetime Instant,
+	upFeedCmntId BigDecimal
+}
+
+entity FeedDel {
+	feedId BigDecimal required,
+	regUserId BigDecimal required,
+	delDatetime Instant required
+}
+
+entity FeedFile {
+	seq BigDecimal required,
+	regDatetime Instant required,
+	updDatetime Instant required,
+	fileId Long required
+}
+
+entity FeedGpsInfo {
+	countryCode String maxlength(30),
+	latitude String required maxlength(20),
+	longitude String required maxlength(20),
+	addr String required maxlength(200),
+	gpsOnYn String maxlength(1)
+}
+
+entity FeedHashtag {
+	feedId Long required,
+	hashtag String required maxlength(100)
+}
+
+entity FeedIf {
+	feedIfId Long required,
+	feedTitle String maxlength(100),
+	feedContent TextBlob required,
+	regDatetime Instant required,
+	htmlYn String maxlength(1),
+	pushYn String required maxlength(1)
+}
+
+entity FeedMain {
+	feedId Long required,
+	feedTitle TextBlob,
+	feedContent TextBlob required,
+	regUserId BigDecimal required,
+	regDatetime Instant required,
+	updDatetime Instant required,
+	imageCnt BigDecimal,
+	commentCnt BigDecimal,
+	readCnt BigDecimal,
+	sympCnt BigDecimal,
+	htmlYn String maxlength(1),
+	chnlId BigDecimal,
+	chnlWebUrl String maxlength(256),
+	feedType String maxlength(30),
+	delYn String maxlength(1)
+}
+
+entity FeedNametag {
+	tagUserId BigDecimal required,
+	feedOrCmnt String required maxlength(1),
+	feedOrCmntId BigDecimal required
+}
+
+entity FeedRead {
+	userId BigDecimal required,
+	readDatetime Instant required
+}
+
+entity FeedSch {
+	startDate Instant required,
+	endDate Instant,
+	alldayYn String maxlength(1),
+	alarmOpt String maxlength(30),
+	repeatOpt String maxlength(30)
+}
+
+entity FeedShare {
+	userGrpId BigDecimal required,
+	shareType String required maxlength(1),
+	regDatetime Instant required,
+	canDatetime Instant,
+	canYn String maxlength(1)
+}
+
+entity FeedSymp {
+	userId BigDecimal required,
+	regDatetime Instant required,
+	sympType String maxlength(30)
+}
+
+entity Grp {
+	grpId Long required,
+	grpName String required maxlength(120),
+	grpType String required maxlength(30),
+	regDatetime Instant required,
+	mbrCnt BigDecimal required,
+	extUserAddYn String maxlength(30),
+	topic String maxlength(128),
+	grpMbrSelType String maxlength(30),
+	connGrpDetail String maxlength(30),
+	grpStatus String maxlength(30),
+	updDatetime Instant,
+	/** 그룹 표시 여부 */
+	grpShowYn String required maxlength(1),
+	/** 그룹 채팅 여부 */
+	grpChatYn String required maxlength(1)
+}
+
+entity GrpFilter {
+	attrId BigDecimal required,
+	attrCode String required maxlength(30)
+}
+
+entity GrpMbr {
+	mbrStatus String required maxlength(30),
+	agreeDate LocalDate,
+	leaveDate LocalDate,
+	regDatetime Instant required,
+	updDatetime Instant required,
+	leaderType String maxlength(30)
+}
+
+entity GrpOption {
+	userId BigDecimal required,
+	clientId String required maxlength(38),
+	grpId BigDecimal required,
+	pushAlarmYn String maxlength(1),
+	feedAlarmYn String maxlength(1),
+	cmntAlarmYn String maxlength(1),
+	chatAlarmYn String maxlength(1),
+	schAlarmYn String maxlength(1),
+	alarmSound String maxlength(50)
+}
+
+entity GrpSkin {
+	grpIntro String maxlength(200),
+	skinColor String required maxlength(20),
+	updDatetime Instant required
+}
+
+entity Hashtag {
+	custId Long required,
+	hashtag String required maxlength(100),
+	regDatetime Instant required,
+	updDatetime Instant required
+}
+
+entity HitCounsel {
+	cselSeq Long required,
+	cselTitle TextBlob,
+	cselContent TextBlob required,
+	profUserType String maxlength(30),
+	cselUserId BigDecimal required,
+	studUserId BigDecimal required,
+	cselUserNo String required maxlength(30),
+	studUserNo String required maxlength(30),
+	cselKind String required maxlength(30),
+	stateCd String maxlength(30),
+	chattRoomId BigDecimal required,
+	constChk String maxlength(1),
+	regUserId BigDecimal required,
+	regDatetime Instant required,
+	updDatetime Instant required,
+	jobSuccYn String maxlength(10),
+	transferCselSeq String maxlength(10),
+	jobProcessDatetime Instant,
+	jobErrCode String maxlength(10),
+	jobErrMsg String maxlength(3000)
+}
+
+/** 인터페이스 첨부파일 */
+entity IfNotiFile {
+	/** 메시지인터페이스ID */
+	msgIfId Long required,
+	/** 파일 입력순서 */
+	fileSeq Integer required,
+	/** 원본파일명 */
+	fileName String required maxlength(255),
+	/** 물리적인 저장위치 */
+	savePath String required maxlength(1024)
+}
+
+/** 공지인터페이스 마스터 */
+entity IfNotiMas {
+	/** 메시지인터페이스ID */
+	msgIfId Long required,
+	/** 사용자ID */
+	msgSendMethod String required maxlength(30),
+	/** 푸시 타이틀 */
+	pushTitle String maxlength(100),
+	/** 푸시 내용 */
+	pushMessage TextBlob,
+	/** 예약 여부 : 0.기본, 1.예약 */
+	reserveYn String required maxlength(1),
+	/** 예약일자 */
+	reserveDatetime Instant required,
+	/** 푸쉬미확인시 SMS전송대기시간(분) */
+	smsTransMinute Integer,
+	/** SMS 메시지유형:1:SMS, 2:LMS, 3:MMS, 4:FMS */
+	smsType String maxlength(30),
+	/** SMS 메시지 */
+	smsMsg String maxlength(2000),
+	/** 전송자 학번 */
+	sendUserNo String maxlength(30),
+	/** 전송자 성명 */
+	sendName String maxlength(90),
+	/** 발신자 전화번호 */
+	sendTel String maxlength(20),
+	/** html 여부 */
+	htmlYn String maxlength(1),
+	/** 등록일자 */
+	regDatetime Instant required,
+	/** 공지 카탈로그 코드 */
+	notiCatCd String required maxlength(10),
+	/** 내부공지발송ID */
+	notiMsgId Long,
+	/** 국민대 통합알리미키값 */
+	kuKeySeq Long required,
+	/** Job 실행여부0.미실행,1.전송완료 */
+	execYn String required maxlength(2),
+	/** Job 실행완료시간 */
+	execDatetime Instant,
+	/** Job실행시 쓰레드명 0-> 실행시쓰레드명이 입력됨 */
+	threadName String required maxlength(60)
+}
+
+/** 공지인터페이스 대상자 */
+entity IfNotiMbr {
+	/** 메시지인터페이스ID */
+	msgIfId Long required,
+	/** 수신자 학번/직번 */
+	rcvUserNo String maxlength(30),
+	/** 수신자 전화번호 3.SMS전송시에만 사용 */
+	rcvTel String maxlength(20),
+	/** 수신자 명 3.SMS전송시에만 사용 */
+	rcvName String maxlength(90)
+}
+
+entity JobHistory {
+	startDatetime Instant required,
+	endDatetime Instant,
+	jobExecType String required maxlength(30),
+	jobStatus String required maxlength(30),
+	execResult String maxlength(30),
+	allCnt BigDecimal,
+	insCnt BigDecimal,
+	updCnt BigDecimal,
+	delCnt BigDecimal,
+	errCnt BigDecimal,
+	errContent String maxlength(255)
+}
+
+entity JobSchedule {
+	jobId Long required,
+	jobName String required maxlength(100),
+	jobContent String maxlength(1024),
+	useYn String maxlength(1),
+	jobType String required maxlength(30),
+	startDatetime Instant,
+	endDatetime Instant,
+	cycleType String required maxlength(30),
+	repeatMonth String maxlength(2),
+	repeatDay String maxlength(2),
+	repeatHour String maxlength(2),
+	repeatMinute String maxlength(2),
+	repeatWeekNum BigDecimal,
+	repeatWeek BigDecimal,
+	selDayWeek String maxlength(1),
+	selMon String maxlength(1),
+	selTue String maxlength(1),
+	selWed String maxlength(1),
+	selThu String maxlength(1),
+	selFri String maxlength(1),
+	selSat String maxlength(1),
+	selSun String maxlength(1),
+	sqlContent String maxlength(4000),
+	pushSqlContent String maxlength(4000),
+	relId BigDecimal,
+	commandType String maxlength(30),
+	nextJobTimeMilli Long
+}
+
+entity JobScheduleStd {
+	jobId BigDecimal required,
+	jobName String required maxlength(100),
+	jobContent String maxlength(1024),
+	useYn String maxlength(1),
+	jobType String required maxlength(30),
+	cycleType String required maxlength(30),
+	repeatMonth String maxlength(2),
+	repeatDay String maxlength(2),
+	repeatHour String maxlength(2),
+	repeatMinute String maxlength(2),
+	repeatWeekNum BigDecimal,
+	repeatWeek BigDecimal,
+	selDayWeek String maxlength(1),
+	sqlContent String maxlength(4000),
+	serverName String required maxlength(100),
+	commandType String maxlength(30)
+}
+
+entity JoinDomain {
+	domainName String required maxlength(60),
+	custName String required maxlength(100),
+	email String required maxlength(100),
+	passwd String required maxlength(256),
+	userName String required maxlength(60),
+	joinDate LocalDate required,
+	certNo String maxlength(4),
+	loginAccnt String required maxlength(60)
+}
+
+/** 회원가입 */
+entity JoinUser {
+	/** 순번 */
+	seq Long required,
+	/** 로그인계정 */
+	loginAccnt String required maxlength(60),
+	/** 로그인암호 */
+	passwd String required maxlength(256),
+	/** 실제사용자이름 */
+	userNameReal String required maxlength(60),
+	/** 휴대폰 */
+	tel String required maxlength(20),
+	/** 이메일 */
+	email String required maxlength(100),
+	/** 확장정보JSON */
+	expandJson String maxlength(1000),
+	/** 등록일시 */
+	regDatetime Instant required,
+	/** 상태(M:인증메일요청,N:가입신청,O:수락,X:거절) */
+	state String required maxlength(1),
+	/** 처리사용자ID */
+	wrkUserId Long,
+	/** 처리일시 */
+	wrkDatetime Instant
+}
+
+entity LoginInfo {
+	protocol String maxlength(30),
+	hostName String maxlength(100),
+	port String maxlength(10),
+	searchBase String maxlength(100),
+	bindPattern String maxlength(100),
+	useridAttr String maxlength(100),
+	objectClass String maxlength(100)
+}
+
+entity LoginInfoUrl {
+	url String maxlength(150),
+	method String maxlength(10),
+	parameters String maxlength(300),
+	contentType String maxlength(50),
+	response String maxlength(100)
+}
+
+entity LoginType {
+	userType String required maxlength(30),
+	loginType String required maxlength(30),
+	mgrLoginYn String maxlength(1),
+	pushUseYn String maxlength(1),
+	grpUseYn String maxlength(1),
+	sqlLogin String maxlength(1024),
+	serverName String maxlength(100)
+}
+
+entity MasterCode {
+	majorCode String required maxlength(30),
+	majorName String required maxlength(30),
+	majorComment String maxlength(300)
+}
+
+/** 메뉴 */
+entity Menu {
+	/** 메뉴ID */
+	menuId Long required,
+	/** 메뉴구분(630 - 10:APP,20:WEB) */
+	menuType String required maxlength(30),
+	/** 메뉴코드 */
+	menuCode String required maxlength(30),
+	/** 상위메뉴코드 */
+	upMenuCode String maxlength(30),
+	/** 메뉴명 */
+	menuName String required maxlength(60),
+	/** 링크방식(890 - 10:내부페이지,20:폴더,30:외부링크(_blank)) */
+	linkType String required maxlength(30),
+	/** 링크주소 */
+	linkUrl String maxlength(150),
+	/** 레벨 */
+	lvl BigDecimal required,
+	/** 순서 */
+	seq String required maxlength(100),
+	/** 사용여부 */
+	useYn String required maxlength(1),
+	/** 등록일시 */
+	regDatetime Instant required,
+	/** 수정일시 */
+	updDatetime Instant,
+	/** 다운로드주소 */
+	downloadUrl String maxlength(150),
+	/** 메뉴영문명 */
+	menuNameEng String maxlength(60)
+}
+
+/** 메뉴 권한 */
+entity MenuAcl {
+	/** ACL코드([임시]X01 - 10:일반사용자,80:채널발송,90:공지발송,99:관리자) */
+	aclCode String required maxlength(30)
+}
+
+/** 메뉴 권한 (기본 템플릿) */
+entity MenuAclStd {
+	/** 기본템플릿순번 */
+	stdSeq Integer required,
+	/** 메뉴코드 */
+	menuCode String required maxlength(30),
+	/** ACL코드([임시]X01 - 10:일반사용자,90:공지발송,99:관리자) */
+	aclCode String required maxlength(30)
+}
+
+entity MenuAppConn {
+	appConnId Long required,
+	devicePlatform String required maxlength(30),
+	appName String required maxlength(60),
+	iconUrl String maxlength(200),
+	lunchType String required maxlength(30),
+	appSchema String required maxlength(1024),
+	parm String maxlength(1024),
+	downloadUrl String maxlength(1024),
+	useYn String required maxlength(1),
+	regDatetime Instant required,
+	updDatetime Instant,
+	custId Long required
+}
+
+/** 메뉴 속성 */
+entity MenuAttr {
+	/** 속성순번 */
+	attrSeq BigDecimal required,
+	/** 속성키 */
+	attrKey String required maxlength(30),
+	/** 속성값 */
+	attrValue String required maxlength(30)
+}
+
+/** 메뉴 속성 (기본 템플릿) */
+entity MenuAttrStd {
+	/** 기본템플릿순번 */
+	stdSeq Integer required,
+	/** 메뉴코드 */
+	menuCode String required maxlength(30),
+	/** 속성순번 */
+	attrSeq BigDecimal required,
+	/** 속성키 */
+	attrKey String required maxlength(30),
+	/** 속성값 */
+	attrValue String required maxlength(30)
+}
+
+/** 메뉴 (기본 템플릿) */
+entity MenuStd {
+	/** 기본템플릿순번 */
+	stdSeq Integer required,
+	/** 메뉴구분(630 - 10:APP,20:WEB) */
+	menuType String required maxlength(30),
+	/** 메뉴코드 */
+	menuCode String required maxlength(30),
+	/** 상위메뉴코드 */
+	upMenuCode String maxlength(30),
+	/** 메뉴명 */
+	menuName String required maxlength(60),
+	/** 링크방식(890 - 10:내부페이지,20:폴더,30:외부링크(_blank)) */
+	linkType String required maxlength(30),
+	/** 링크주소 */
+	linkUrl String maxlength(150),
+	/** 레벨 */
+	lvl BigDecimal required,
+	/** 순서 */
+	seq String required maxlength(60),
+	/** 사용여부 */
+	useYn String required maxlength(1)
+}
+
+/** 메뉴 신분구분 */
+entity MenuUsertype {
+	/** 신분구분(10:일반사용자,90:외부사용자) */
+	userType String required maxlength(30)
+}
+
+/** 시퀀스 */
+entity MthinkSequence {
+	sequenceName String required maxlength(100),
+	sequenceIncrement Integer required,
+	sequenceMinValue Integer required,
+	sequenceMaxValue Long required,
+	sequenceCurValue Long,
+	sequenceCycle Boolean required
+}
+
+entity NationCode {
+	code String required maxlength(3),
+	nationNameEn String required maxlength(100),
+	nationNameKr String maxlength(100),
+	primeYn String maxlength(1),
+	a2 String required maxlength(2)
+}
+
+entity NotiAddFile {
+	fileId BigDecimal required,
+	dispOrd BigDecimal required,
+	regDatetime Instant required,
+	updDatetime Instant
+}
+
+/** 공지발송 이메일 이력 */
+entity NotiEmailHis {
+	/** 공지푸쉬ID */
+	notiMsgId Long required,
+	/** 수신사용자ID */
+	rcvUserId Long required,
+	/** 수신자 이메일 */
+	rcvEmail String maxlength(100),
+	/** 전송사용자ID */
+	sendUserId Long required,
+	/** 전송일자 */
+	sendDatetime Instant required,
+	/** 0.전송실패, 1.전송성공 */
+	errCode String required maxlength(1),
+	/** 에러발생 메시지 */
+	errMsg String maxlength(300)
+}
+
+entity NotiMsg {
+	notiMsgId Long required,
+	msgSendMethod String required maxlength(30),
+	sendUserId BigDecimal required,
+	notiTitle String maxlength(100),
+	notiMessage TextBlob required,
+	issueDatetime Instant required,
+	alertType String maxlength(30),
+	closeYn String maxlength(1),
+	closeDatetime Instant,
+	readCnt BigDecimal,
+	reserveYn String required maxlength(1),
+	reserveDatetime Instant,
+	smsTransMinute BigDecimal,
+	msgSize BigDecimal,
+	msgIfId BigDecimal,
+	pushStatusCode String maxlength(30),
+	errText String maxlength(300),
+	fileCopyYn String maxlength(1),
+	ftpSvrInfo String maxlength(300),
+	sendUserName String maxlength(60),
+	htmlYn String required maxlength(1),
+	smsType String maxlength(30),
+	smsMsg String maxlength(2000),
+	callback String maxlength(20),
+	relKey1 String maxlength(100),
+	relKey2 String maxlength(100),
+	/** 공지 카테고리 전체 공지(G000), 업무 공지(G010), 시스템 공지(G990) */
+	notiCatCd String required maxlength(10),
+	/** 예약취소자 사용자ID */
+	reserveCancelUserId BigDecimal,
+	/** 예약취소자 일자 */
+	reserveCancelDatetime Instant,
+	/** 푸시 발송시점에서의 앱 설치자수 */
+	appInstallCnt BigDecimal required
+}
+
+entity NotiMsgIf {
+	msgIfId Long required,
+	msgSendMethod String required maxlength(30),
+	pushTitle String maxlength(100),
+	pushMessage String maxlength(4000),
+	reserveYn String required maxlength(1),
+	reserveDatetime Instant,
+	smsTransMinute BigDecimal,
+	smsType String maxlength(30),
+	smsMsg String maxlength(2000),
+	sendUserNo String maxlength(30),
+	sendName String maxlength(60),
+	sendTel String maxlength(20),
+	rcvUserNo String maxlength(30),
+	rcvName String maxlength(60),
+	rcvTel String maxlength(20),
+	crtDatetime Instant required,
+	fileLoc String maxlength(100),
+	fileCopyYn String maxlength(1),
+	relKey1 String maxlength(100),
+	relKey2 String maxlength(100),
+	htmlYn String maxlength(1),
+	notiCatCd String required maxlength(10),
+	threadName String required maxlength(60)
+}
+
+entity NotiRcvMbr {
+	userId BigDecimal required,
+	rcvDatetime Instant required,
+	readDatetime Instant,
+	readYn String required maxlength(1),
+	delYn String maxlength(1)
+}
+
+/** 암호변경이력(개인정보보호법-6개월기준) */
+entity PasswdModiHis {
+	/** 암호변경이력 SEQ */
+	hisSeq Long required,
+	/** 사용자신분구분 */
+	userType String required maxlength(30),
+	/** 수정일시 */
+	updDatetime Instant required
+}
+
+/** 개인정보활용동의(개인정보보호법-동의일자등) */
+entity PersonalInfoAa {
+	/** 사용자ID */
+	userId Long required,
+	/** 개인정보필수항목 */
+	perRequire String maxlength(30),
+	/** 개인정보옵션항목 */
+	perOption String maxlength(30),
+	/** 등록일시 */
+	regDatetime Instant required,
+	/** 수정일시 */
+	updDatetime Instant required
+}
+
+entity PollCmnt {
+	seq BigDecimal required,
+	regUserId BigDecimal required,
+	regDatetime Instant required,
+	pollCmnt TextBlob required,
+	updDatetime Instant required
+}
+
+entity PollItem {
+	pollItemNo BigDecimal required,
+	pollItemType String maxlength(30),
+	pollItemName String required maxlength(400),
+	fileId Long
+}
+
+entity PollJoin {
+	answerId Long required,
+	userId BigDecimal,
+	pollDatetime Instant required
+}
+
+entity PollJoinItem {
+	pollItemNo BigDecimal required,
+	pollAnswer String required maxlength(1024)
+}
+
+entity PollJoinList {
+	pollId BigDecimal required,
+	userId BigDecimal required,
+	joinDatetime Instant required
+}
+
+entity PollMain {
+	pollId Long required,
+	pollTitle String required maxlength(400),
+	pollContent TextBlob required,
+	userId BigDecimal,
+	secretYn String required maxlength(1),
+	startDatetime Instant required,
+	endDatetime Instant required,
+	pollStatus String required maxlength(30),
+	pollElecCnt BigDecimal required,
+	pollJoinCnt BigDecimal required,
+	regDatetime Instant,
+	closeUserId BigDecimal
+}
+
+entity PollOpt {
+	pollOptNo BigDecimal required,
+	pollOptContent String required maxlength(160),
+	fileId Long
+}
+
+entity PollShare {
+	shareType String required maxlength(1),
+	userGrpId BigDecimal required
+}
+
+entity Push {
+	pushId Long required,
+	pushType String required maxlength(30),
+	mqttContents TextBlob,
+	pushContents String required maxlength(4000),
+	regDatetime Instant required,
+	params String maxlength(1024),
+	notiMsgId BigDecimal
+}
+
+entity PushExclusion {
+	sendUserId BigDecimal required,
+	regDatetime Instant required
+}
+
+entity PushRecipients {
+	pushId BigDecimal required,
+	clientId String required maxlength(38),
+	rcvDatetime Instant,
+	deviceToken String maxlength(256),
+	status String required maxlength(32),
+	errOccurYn String maxlength(1),
+	errMsg String maxlength(4000),
+	regDatetime Instant required,
+	updDatetime Instant,
+	publicSendYn String required maxlength(1),
+	serviceName String required maxlength(45),
+	alarmSound String required maxlength(50)
+}
+
+entity PushRecipientsHistory {
+	seq Long required,
+	pushId BigDecimal,
+	clientId String maxlength(38),
+	rcvDatetime Instant,
+	deviceToken String maxlength(256),
+	status String maxlength(32),
+	errOccurYn String maxlength(1),
+	errMsg String maxlength(4000),
+	regDatetime Instant,
+	updDatetime Instant,
+	publicSendYn String maxlength(1),
+	serviceName String maxlength(45)
+}
+
+entity SchMain {
+	schId Long required,
+	schType String required maxlength(30),
+	schTitle String required maxlength(100),
+	schContent String maxlength(1024),
+	startDate Instant required,
+	endDate Instant required,
+	alldayYn String required maxlength(1),
+	repeatOpt String required maxlength(30),
+	repeatVal BigDecimal,
+	offYn String required maxlength(1),
+	regUserId BigDecimal,
+	regDatetime Instant required,
+	updDatetime Instant required,
+	custId Long required
+}
+
+entity SchShare {
+	userId BigDecimal required,
+	alarmOpt String maxlength(30)
+}
+
+entity ServerInfo {
+	serverType String required maxlength(30),
+	ftpIp String maxlength(30),
+	ftpPort BigDecimal,
+	ftpProtocol String maxlength(30),
+	loginId String maxlength(30),
+	loginPwd String maxlength(100),
+	fileDir String required maxlength(1000),
+	webUrl String maxlength(100)
+}
+
+entity ServiceInfo {
+	serviceVer String required maxlength(30),
+	infoType String required maxlength(30),
+	contentHtml String required maxlength(4000)
+}
+
+/** SMS발송 */
+entity Sms {
+	/** SMSID */
+	smsId Long required,
+	/** 등록KEY */
+	regKey String required maxlength(10),
+	/** 등록구분(NOTI,CHNL) */
+	regType String required maxlength(4),
+	/** 예약전송여부(0:즉시,1:예약) */
+	reserveYn String required maxlength(1),
+	/** 예약일시 */
+	reserveDatetime Instant,
+	/** 발신자ID */
+	sndUserId BigDecimal,
+	/** 발신자명 */
+	sndName String maxlength(30),
+	/** 발신전화번호 */
+	sndTel String required maxlength(20),
+	/** 수신자ID */
+	rcvUserId BigDecimal,
+	/** 수신자명 */
+	rcvName String maxlength(30),
+	/** 수신전화번호 */
+	rcvTel String required maxlength(20),
+	/** SMS종류(400) */
+	smsType String required maxlength(30),
+	/** SMS제목 */
+	smsTitle String maxlength(120),
+	/** SMS내용 */
+	smsContent String maxlength(2000),
+	/** SMS전송일시 */
+	resultDatetime Instant,
+	/** SMS전송결과(500) */
+	result String maxlength(30),
+	/** SMS전송결과처리일시 */
+	resultUpdDatetime Instant
+}
+
+entity SmsMsg {
+	smsId Long required,
+	reserveYn String maxlength(1),
+	reserveDatetime Instant,
+	sendTel String maxlength(20),
+	sendName String maxlength(60),
+	rcvTel String required maxlength(20),
+	rcvName String maxlength(60),
+	smsMsgType String required maxlength(30),
+	smsMsgTitle String maxlength(120),
+	smsMsgContent String maxlength(2000),
+	sendDatetime Instant,
+	sendResult String maxlength(30),
+	resultUpdDatetime Instant,
+	fileLoc String maxlength(100),
+	notiMsgId BigDecimal,
+	sendUserNo String maxlength(30),
+	sendDeptCode String maxlength(30),
+	rcvUserId BigDecimal
+}
+
+entity StatGrp {
+	statDate LocalDate required,
+	eventType String required maxlength(30),
+	grpId BigDecimal required,
+	eventCnt BigDecimal required,
+	custId Long required
+}
+
+entity StatInd {
+	statDate LocalDate required,
+	eventType String required maxlength(30),
+	userId BigDecimal required,
+	eventCnt BigDecimal required,
+	custId Long required
+}
+
+/** 인정보접속이력관리(개인정보보호법-사용자정보) */
+entity TblAccessHis {
+	/** 이력 SEQ */
+	hisSeq Long required,
+	/** 접속자 IP */
+	accessIp String required maxlength(20),
+	/** 등록일자 */
+	regDatetime Instant required,
+	/** 실행 SQL */
+	sqlText TextBlob required
+}
+
+/** 임시파일 */
+entity TempFile {
+	/** 등록키(사용자ID,채널ID...형변환주의) */
+	regKey String required maxlength(10),
+	/** 등록구분(USER,CHNL...) */
+	regType String required maxlength(4),
+	/** 파일키 */
+	fileKey String required maxlength(14),
+	/** 파일순번 */
+	fileSeq BigDecimal required,
+	/** 컨텐트종류(기초코드:320) */
+	contentType String required maxlength(30),
+	/** 원본파일명 */
+	orgFileName String maxlength(256),
+	/** 파일명 */
+	fileName String required maxlength(1024),
+	/** 파일확장자 */
+	fileExt String maxlength(30),
+	/** 파일크기 */
+	fileSize BigDecimal required,
+	/** 저장경로 */
+	savePath String required maxlength(256),
+	/** 이미지너비 */
+	width BigDecimal,
+	/** 이미지높이 */
+	height BigDecimal,
+	/** 웹상의URL */
+	webUrl String required maxlength(1024),
+	/** 썸네일URL */
+	thumbUrl String maxlength(100),
+	/** 썸네일종류(710) */
+	thumbType String maxlength(30),
+	/** 등록일시 */
+	regDatetime Instant,
+	/** MIME타입 */
+	mimeType String maxlength(30)
+}
+
+entity UserAddrBook {
+	addrBookId Long required,
+	userId BigDecimal required,
+	bookTitle String required maxlength(90),
+	addrBookType String required maxlength(30)
+}
+
+entity UserAddrMbrInner {
+	userId BigDecimal required
+}
+
+entity UserAddrMbrOuter {
+	tel String required maxlength(20),
+	rcvName String maxlength(30)
+}
+
+entity UserAttr {
+	attrCode String required maxlength(30),
+	attrValue String required maxlength(100)
+}
+
+entity UserBookmark {
+	feedId BigDecimal required,
+	regDatetime Instant required
+}
+
+entity UserClient {
+	clientId String required maxlength(38),
+	deviceToken String maxlength(256),
+	devicePlatform String maxlength(30),
+	deviceModel String maxlength(60),
+	deviceId String required maxlength(36),
+	locale String maxlength(30),
+	appVer String required maxlength(30),
+	encKey String maxlength(100),
+	lastAccessDatetime Instant,
+	accessKey String maxlength(100),
+	regDatetime Instant required
+}
+
+/** 클라이언트삭제이력(로그아웃,푸시발송후앱삭제) */
+entity UserClientDelHis {
+	/** 클라이언트삭제이력 SEQ */
+	hisSeq Long required,
+	/** 클라이언트ID */
+	clientId String required maxlength(38),
+	/** 사용자ID */
+	userId Long required,
+	/** 디바이스토큰 */
+	deviceToken String maxlength(256),
+	/** 디바이스플랫폼 */
+	devicePlatform String maxlength(30),
+	/** 디바이스모델 */
+	deviceModel String maxlength(60),
+	/** 디바이스ID */
+	deviceId String required maxlength(36),
+	/** 로케일 */
+	locale String maxlength(30),
+	/** 앱버전 */
+	appVer String required maxlength(30),
+	/** 암호키 */
+	encKey String maxlength(100),
+	/** 최종접속일시 */
+	lastAccessDatetime Instant,
+	/** 엑세스키 */
+	accessKey String maxlength(100),
+	/** 등록일시 */
+	regDatetime Instant required,
+	/** 앱삭제구분:LOGOUT, PUSH_DEL */
+	delType String maxlength(10),
+	/** 삭제일시 */
+	delDatetime Instant required
+}
+
+/** 겸직자 동기화 유저 임시테이블(그룹정의에사용) */
+entity UserGyumjik {
+	/** 고객사ID */
+	custId Long required,
+	/** 사용자번호(학번,사번 등) */
+	userNo String required maxlength(30),
+	/** 겸직부서코드 */
+	deptCode String required maxlength(30),
+	/** 리더여부(디폴트:0) */
+	leaderYn String required maxlength(1),
+	/** 등록일시 */
+	regDatetime Instant required,
+	/** 내부겸직자여부(1:내부,0:외부추가자) */
+	originalUserYn String required maxlength(1)
+}
+
+entity UserInvitation {
+	email String required maxlength(100),
+	invGrpId BigDecimal required,
+	invGrpName String required maxlength(120),
+	guestName String maxlength(60),
+	reqDate Instant required,
+	joinDate Instant,
+	custId Long required,
+	userId BigDecimal,
+	userNo String maxlength(30),
+	loginAccnt String maxlength(60),
+	deptCode String maxlength(30),
+	passwd String maxlength(256)
+}
+
+entity UserLog {
+	userId BigDecimal required,
+	eventDatetime Instant required,
+	devicePlatform String required maxlength(30),
+	eventInOut String required maxlength(30),
+	/** IP 주소 */
+	ipAddr String maxlength(20)
+}
+
+entity UserMaster {
+	userId Long required,
+	userName String required maxlength(80),
+	loginAccnt String required maxlength(60),
+	passwd String required maxlength(256),
+	tel String maxlength(20),
+	fax String maxlength(20),
+	email String maxlength(100),
+	birth String maxlength(10),
+	sex String maxlength(1),
+	appInstallYn String required maxlength(1),
+	userType String required maxlength(30),
+	userNo String required maxlength(30),
+	regDate Instant required,
+	updDate Instant required,
+	lastPushDatetime Instant,
+	countryNo BigDecimal,
+	officeTel String maxlength(20),
+	fileId BigDecimal,
+	useYn String required maxlength(1),
+	originalUserYn String maxlength(1),
+	userNameReal String maxlength(80),
+	chattingAllowYn String required maxlength(1),
+	telOpenYn String required maxlength(1),
+	jikwi String maxlength(60),
+	entryYmd String maxlength(10),
+	userSortSeq String required maxlength(10)
+}
+
+entity UserMasterGateway {
+	custId Long required,
+	userNo String required maxlength(30),
+	userType String required maxlength(30),
+	loginAccnt String required maxlength(60),
+	passwd String required maxlength(256),
+	userName String required maxlength(60),
+	userNameReal String maxlength(60),
+	deptCode String required maxlength(30),
+	tel String maxlength(20),
+	officeTel String maxlength(20),
+	email String maxlength(100),
+	birth String maxlength(10),
+	sex String maxlength(1)
+}
+
+/** 사용자 수집 중계 테이블인 POOL */
+entity UserMasterPool {
+	/** 고객사ID */
+	custId Long required,
+	/** 사용자번호(학번,사번 등) */
+	userNo String required maxlength(30),
+	/** 신분구분(교원,직원,학생 등) */
+	userType String required maxlength(30),
+	/** 로그인계정 */
+	loginAccnt String required maxlength(60),
+	/** 로그인암호 */
+	passwd String required maxlength(256),
+	/** 성명 */
+	userName String required maxlength(60),
+	/** 사용자명(실명) */
+	userNameReal String maxlength(60),
+	/** 부서코드 */
+	deptCode String required maxlength(30),
+	/** 휴대폰 */
+	tel String maxlength(20),
+	/** 사무실전화번호 */
+	officeTel String maxlength(20),
+	/** 이메일 */
+	email String maxlength(100),
+	/** 생일 */
+	birth String maxlength(10),
+	/** 성별(1,2) */
+	sex String maxlength(1),
+	/** 사용자동기화JobID */
+	jobId Long required,
+	/** 예비 컬럼01 */
+	col01 String maxlength(10),
+	/** 예비 컬럼02 */
+	col02 String maxlength(10),
+	/** 예비 컬럼03 */
+	col03 String maxlength(10),
+	/** 예비 컬럼04 */
+	col04 String maxlength(10),
+	/** 예비 컬럼05 */
+	col05 String maxlength(10),
+	/** 예비 컬럼06 */
+	regDatetime Instant required
+}
+
+entity UserMasterTemp {
+	userNo String required maxlength(30),
+	loginAccnt String required maxlength(60),
+	deptCode String required maxlength(30),
+	userName String required maxlength(60),
+	passwd String required maxlength(256),
+	userType String required maxlength(30),
+	tel String maxlength(20),
+	email String maxlength(100)
+}
+
+entity UserOption {
+	clientId String required maxlength(38),
+	pushOnOff String required maxlength(1),
+	alarmSound String maxlength(50),
+	feedAlarmYn String required maxlength(1),
+	cmntAlarmYn String required maxlength(1),
+	chatAlarmYn String required maxlength(1),
+	schAlarmYn String maxlength(1),
+	alarmOffRepeatYn String required maxlength(1),
+	alarmOffRepeatStarttime String maxlength(13),
+	alarmOffRepeatEndtime String maxlength(13),
+	alarmOffNowYn String required maxlength(1),
+	alarmOffNowEndtime String maxlength(13),
+	chnlIncludeYn String maxlength(1),
+	fileSizeType String maxlength(1),
+	previewCnt BigDecimal,
+	grpDispCnt BigDecimal,
+	chnlDispCnt BigDecimal,
+	notiFeedYn String required maxlength(1),
+	notiCmntYn String required maxlength(1),
+	notiProfileYn String required maxlength(1),
+	regDatetime Instant required,
+	vibOnOff String maxlength(1)
+}
+ 
+
+// Relations
+relationship ManyToOne {
+	AddFileThumb{file required} to AddFile{addFileThumb}
+}
+
+relationship ManyToOne {
+	AppHistory{cust required} to CustInfo{appHistory}
+}
+
+relationship ManyToOne {
+	AttrGrp{cust required} to DbInfo{attrGrp}
+}
+
+relationship ManyToOne {
+	AttrGrp{serverName required} to DbInfo{attrGrp}
+}
+
+relationship ManyToOne {
+	BundleText{cust required} to CustInfo{bundleText}
+}
+
+relationship ManyToOne {
+	BussAuthMbr{bussAuthGrp required} to BussAuthGrp{bussAuthMbr}
+}
+
+relationship ManyToOne {
+	BussCatCondition{bussCat required} to BussCat{bussCatCondition}
+}
+
+// TODO This is a pure ManyToMany relation (delete me and decide owner side)
+relationship ManyToMany {
+	BussSendAuth{bussCat required} to BussCat{bussSendAuth}
+}
+
+// TODO This is a pure ManyToMany relation (delete me and decide owner side)
+relationship ManyToMany {
+	BussSendAuth{bussAuthGrp required} to BussAuthGrp{bussSendAuth}
+}
+
+// 업무분류SQL
+relationship ManyToOne {
+	/** 업무연동분류ID */
+	BussSql{bussCatId required} to BussCat{bussSql}
+}
+
+// 업무분류SQL전송유형
+relationship ManyToOne {
+	/** 업무연동분류ID */
+	BussSqlTransfer{bussCatId required} to BussSql{bussSqlTransfer}
+}
+
+// 채널권한
+relationship ManyToOne {
+	/** 채널ID */
+	ChannelAuth{chnlId required} to ChannelMain{channelAuth}
+}
+
+// 채널관리자
+relationship ManyToOne {
+	/** 채널ID */
+	ChannelMgr{chnlId required} to ChannelMain{channelMgr}
+}
+
+// 채널관리자
+relationship ManyToOne {
+	/** 사용자ID */
+	ChannelMgr{userId required} to UserMaster{channelMgr}
+}
+
+relationship ManyToOne {
+	ChannelSubscribe{chnlId required} to ChnlSubscrSql{channelSubscribe}
+}
+
+relationship ManyToOne {
+	ChannelSubscribe{cssSeq} to ChnlSubscrSql{channelSubscribe}
+}
+
+// 채널전송유형
+relationship ManyToOne {
+	/** 채널ID */
+	ChannelTransfer{chnlId required} to ChannelMain{channelTransfer}
+}
+
+relationship ManyToOne {
+	ChattContent{chattRoom required} to ChattRoom{chattContent}
+}
+
+relationship ManyToOne {
+	ChattJoin{chattRoom required} to ChattRoom{chattJoin}
+}
+
+relationship ManyToOne {
+	ChattRead{message required} to ChattContent{chattRead}
+}
+
+relationship ManyToOne {
+	ChattRemove{chattRoom required} to ChattRoom{chattRemove}
+}
+
+// 채널구독자SQL
+relationship ManyToOne {
+	/** 채널ID */
+	ChnlSubscrSql{chnlId required} to ChannelMain{chnlSubscrSql}
+}
+
+// 채널구독자SQL
+relationship ManyToOne {
+	/** 고객사ID */
+	ChnlSubscrSql{custId required} to DbInfo{chnlSubscrSql}
+}
+
+// 채널구독자SQL
+relationship ManyToOne {
+	/** DB서버명 */
+	ChnlSubscrSql{serverName required} to DbInfo{chnlSubscrSql}
+}
+
+relationship ManyToOne {
+	ConnGrp{cust required} to DbInfo{connGrp}
+}
+
+relationship ManyToOne {
+	ConnGrp{serverName required} to DbInfo{connGrp}
+}
+
+relationship ManyToOne {
+	ConnGrpResult{connGrp required} to ConnGrp{connGrpResult}
+}
+
+relationship ManyToOne {
+	CustConnInfo{cust required} to CustInfo{custConnInfo}
+}
+
+relationship ManyToOne {
+	CustDept{cust required} to CustInfo{custDept}
+}
+
+relationship ManyToOne {
+	CustFaq{cust required} to CustInfo{custFaq}
+}
+
+relationship ManyToOne {
+	CustLic{cust required} to CustInfo{custLic}
+}
+
+relationship ManyToOne {
+	CustManager{user required} to UserMaster{custManager}
+}
+
+relationship ManyToOne {
+	CustManager{cust required} to CustInfo{custManager}
+}
+
+relationship ManyToOne {
+	CustNotice{cust required} to CustInfo{custNotice}
+}
+
+relationship ManyToOne {
+	CustOpt{cust required} to CustInfo{custOpt}
+}
+
+relationship ManyToOne {
+	DbInfo{cust required} to CustInfo{dbInfo}
+}
+
+relationship ManyToOne {
+	DetailCode{majorCode required} to MasterCode{detailCode}
+}
+
+relationship ManyToOne {
+	DetailCodeNls{majorCode required} to MasterCode{detailCodeNls}
+}
+
+// 피드채널
+relationship ManyToOne {
+	/** 피드ID */
+	FeedChnl{feedId required} to FeedMain{feedChnl}
+}
+
+relationship ManyToOne {
+	FeedCmnt{feed required} to FeedMain{feedCmnt}
+}
+
+relationship ManyToOne {
+	FeedCmnt{file} to AddFile{feedCmnt}
+}
+
+relationship ManyToOne {
+	FeedFile{feed required} to FeedMain{feedFile}
+}
+
+relationship ManyToOne {
+	FeedGpsInfo{feed required} to FeedMain{feedGpsInfo}
+}
+
+relationship ManyToOne {
+	FeedGpsInfo{file required} to AddFile{feedGpsInfo}
+}
+
+relationship ManyToOne {
+	FeedIf{chnl required} to ChannelMain{feedIf}
+}
+
+relationship ManyToOne {
+	FeedMain{feedIf} to FeedIf{feedMain}
+}
+
+relationship ManyToOne {
+	FeedRead{feed required} to FeedMain{feedRead}
+}
+
+relationship ManyToOne {
+	FeedSch{feed required} to FeedMain{feedSch}
+}
+
+relationship ManyToOne {
+	FeedShare{feed required} to FeedMain{feedShare}
+}
+
+relationship ManyToOne {
+	FeedSymp{feed required} to FeedMain{feedSymp}
+}
+
+relationship ManyToOne {
+	Grp{cust required} to CustInfo{grp}
+}
+
+relationship ManyToOne {
+	Grp{connGrp} to ConnGrp{grp}
+}
+
+relationship ManyToOne {
+	Grp{grpOwner} to UserMaster{grp}
+}
+
+relationship ManyToOne {
+	GrpFilter{grp required} to Grp{grpFilter}
+}
+
+relationship ManyToOne {
+	GrpMbr{user required} to UserMaster{grpMbr}
+}
+
+relationship ManyToOne {
+	GrpMbr{grp required} to Grp{grpMbr}
+}
+
+relationship ManyToOne {
+	GrpSkin{grp required} to Grp{grpSkin}
+}
+
+relationship ManyToOne {
+	GrpSkin{file} to AddFile{grpSkin}
+}
+
+relationship ManyToOne {
+	JobHistory{job required} to JobSchedule{jobHistory}
+}
+
+relationship ManyToOne {
+	JobSchedule{cust required} to DbInfo{jobSchedule}
+}
+
+relationship ManyToOne {
+	JobSchedule{serverName required} to DbInfo{jobSchedule}
+}
+
+// 회원가입
+relationship ManyToOne {
+	/** 고객사ID */
+	JoinUser{custId required} to CustInfo{joinUser}
+}
+
+relationship ManyToOne {
+	LoginInfo{cust required} to CustInfo{loginInfo}
+}
+
+relationship ManyToOne {
+	LoginInfoUrl{custId required} to CustInfo{loginInfoUrl}
+}
+
+relationship ManyToOne {
+	LoginType{cust required} to CustInfo{loginType}
+}
+
+// 메뉴
+relationship ManyToOne {
+	/** 고객사ID */
+	Menu{custId required} to CustInfo{menu}
+}
+
+// 메뉴 권한
+relationship ManyToOne {
+	/** 메뉴ID */
+	MenuAcl{menuId required} to Menu{menuAcl}
+}
+
+// 메뉴 속성
+relationship ManyToOne {
+	/** 메뉴ID */
+	MenuAttr{menuId required} to Menu{menuAttr}
+}
+
+// 메뉴 신분구분
+relationship ManyToOne {
+	/** 메뉴ID */
+	MenuUsertype{menuId required} to Menu{menuUsertype}
+}
+
+relationship ManyToOne {
+	NotiAddFile{notiMsg required} to NotiMsg{notiAddFile}
+}
+
+relationship ManyToOne {
+	NotiMsg{bussCat} to BussCat{notiMsg}
+}
+
+relationship ManyToOne {
+	NotiRcvMbr{notiMsg required} to NotiMsg{notiRcvMbr}
+}
+
+// 암호변경이력(개인정보보호법-6개월기준)
+relationship ManyToOne {
+	/** 사용자ID */
+	PasswdModiHis{userId required} to UserMaster{passwdModiHis}
+}
+
+relationship ManyToOne {
+	PollCmnt{poll required} to PollMain{pollCmnt}
+}
+
+relationship ManyToOne {
+	PollItem{poll required} to PollMain{pollItem}
+}
+
+relationship ManyToOne {
+	PollJoin{poll required} to PollMain{pollJoin}
+}
+
+relationship ManyToOne {
+	PollJoinItem{answer required} to PollJoin{pollJoinItem}
+}
+
+relationship ManyToOne {
+	PollOpt{poll required} to PollItem{pollOpt}
+}
+
+relationship ManyToOne {
+	PollOpt{pollItemNo required} to PollItem{pollOpt}
+}
+
+relationship ManyToOne {
+	PollShare{poll required} to PollMain{pollShare}
+}
+
+relationship ManyToOne {
+	PushExclusion{user required} to UserMaster{pushExclusion}
+}
+
+relationship ManyToOne {
+	SchShare{sch required} to SchMain{schShare}
+}
+
+relationship ManyToOne {
+	ServerInfo{cust required} to CustInfo{serverInfo}
+}
+
+relationship ManyToOne {
+	ServiceInfo{cust required} to CustInfo{serviceInfo}
+}
+
+// 인정보접속이력관리(개인정보보호법-사용자정보)
+relationship ManyToOne {
+	/** 접속자ID */
+	TblAccessHis{userId required} to UserMaster{tblAccessHis}
+}
+
+relationship ManyToOne {
+	UserAddrMbrInner{addrBook required} to UserAddrBook{userAddrMbrInner}
+}
+
+relationship ManyToOne {
+	UserAddrMbrOuter{addrBook required} to UserAddrBook{userAddrMbrOuter}
+}
+
+relationship ManyToOne {
+	UserAttr{attr required} to AttrGrp{userAttr}
+}
+
+relationship ManyToOne {
+	UserAttr{user required} to UserMaster{userAttr}
+}
+
+relationship ManyToOne {
+	UserBookmark{user required} to UserMaster{userBookmark}
+}
+
+relationship ManyToOne {
+	UserClient{user required} to UserMaster{userClient}
+}
+
+relationship ManyToOne {
+	UserMaster{cust required} to CustDept{userMaster}
+}
+
+relationship ManyToOne {
+	UserMaster{deptCode required} to CustDept{userMaster}
+}
+
+relationship ManyToOne {
+	UserOption{user required} to UserMaster{userOption}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+
